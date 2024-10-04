@@ -1,11 +1,3 @@
-def getColorChanelMatrix(img,chanel):
-    if chanel in range(0,3):
-        result_matrix=img[:,:,chanel]
-    else:
-        result_matrix = 0.299 * img[:, :, 0] + 0.587 * img[:, :, 1] + 0.114 * img[:, :, 2]
-    return result_matrix
-#end getColorChanelMatrix
-
 # This is a sample Python script.
 
 # Press Shift+F10 to execute it or replace it with your code.
@@ -39,7 +31,7 @@ def getLBPMatrix(img,chanel):
     for i in range(result_matrix.shape[0]):
        for j in range(result_matrix.shape[1]):
             # Calculate LBP for red channel
-            data=((result_matrix[i, j] - result_matrix[max(0, i-1):min(result_matrix.shape[0], i+2), max(0, j-1):min(result_matrix.shape[1], j+2)]) >= 0)
+            data=((result_matrix[i, j] - result_matrix[max(0, i-1):min(result_matrix.shape[0], i+2), max(0, j-1):min(result_matrix.shape[1], j+2)]) < 0)
             c=np.zeros((3,3))
             s = data.size
             match s :
@@ -336,7 +328,7 @@ gray_prop_vect_arr =[]
 red_prop_vect_arr =[]
 green_prop_vect_arr =[]
 blue_prop_vect_arr =[]
-blok_size=32
+blok_size=64
 for cellObj in sheet['A65':'A79']:
       for cell in cellObj:
               image_C=cv.imread("C:/Users/Palaguto_va/PycharmProjects/pythonProject1/FotoCore/"+cell.value)
