@@ -5,10 +5,12 @@
 import cv2 as cv
 import numpy as np
 import os as os
+
+import openpyxl
 from openpyxl import load_workbook
 from openpyxl.utils import get_column_letter, column_index_from_string
 
-import excelFunc
+
 
 
 def print_hi(name):
@@ -23,7 +25,7 @@ if __name__ == '__main__':
 
 def getLBPMatrix(img,chanel):
     if chanel in range(0,3):
-        result_matrix=img[:,:,chanel]
+        result_matrix=img[:,:,chanel]*1.0
     else:
         result_matrix = 0.299 * img[:, :, 0] + 0.587 * img[:, :, 1] + 0.114 * img[:, :, 2]
 
@@ -31,7 +33,7 @@ def getLBPMatrix(img,chanel):
     for i in range(result_matrix.shape[0]):
        for j in range(result_matrix.shape[1]):
             # Calculate LBP for red channel
-            data=((result_matrix[i, j] - result_matrix[max(0, i-1):min(result_matrix.shape[0], i+2), max(0, j-1):min(result_matrix.shape[1], j+2)]) < 0)
+            data=((result_matrix[i, j] - result_matrix[max(0, i-1):min(result_matrix.shape[0], i+2), max(0, j-1):min(result_matrix.shape[1], j+2)]) > 0)
             c=np.zeros((3,3))
             s = data.size
             match s :
@@ -69,7 +71,8 @@ def getLBPMatrix(img,chanel):
                 jj=jj+1
             for ii in range(c.shape[0]-2,0,-1):
                 tmpV[jj] = c[ii,0]
-            lbp[i, j] = np.sum(tmpV * 2 ** np.arange(8))
+            mnojiteli=(128,64,32,16,8,4,2,1)
+            lbp[i, j] = np.sum(tmpV * mnojiteli)
     return lbp
 #end getLBPmatrix
 
@@ -153,30 +156,7 @@ def getLBPPropsForPiece(matr, blok_size):
         end_h_iteration = 1
     else:
         h_over = (matr.shape[0]) - end_h_iteration * blok_size
-    '''
-    if w_over > 3:
-        if h_over > 3:
-            gray_props_vector = np.zeros(((end_w_iteration + 1) * (end_h_iteration + 1)) * 57)
-            red_props_vector = np.zeros(((end_w_iteration + 1) * (end_h_iteration + 1)) * 57)
-            green_props_vector = np.zeros(((end_w_iteration + 1) * (end_h_iteration + 1)) * 57)
-            blue_props_vector = np.zeros(((end_w_iteration + 1) * (end_h_iteration + 1)) * 57)
-        else:
-            gray_props_vector = np.zeros((end_w_iteration + 1) * end_h_iteration * 57)
-            red_props_vector = np.zeros((end_w_iteration + 1) * end_h_iteration * 57)
-            green_props_vector = np.zeros((end_w_iteration + 1) * end_h_iteration * 57)
-            blue_props_vector = np.zeros((end_w_iteration + 1) * end_h_iteration * 57)
-    else:
-        if h_over > 3:
-            gray_props_vector = np.zeros(end_w_iteration * (end_h_iteration + 1) * 57)
-            red_props_vector = np.zeros(end_w_iteration * (end_h_iteration + 1) * 57)
-            green_props_vector = np.zeros(end_w_iteration * (end_h_iteration + 1) * 57)
-            blue_props_vector = np.zeros(end_w_iteration * (end_h_iteration + 1) * 57)
-        else:
-            gray_props_vector = np.zeros(end_w_iteration * end_h_iteration * 57)
-            red_props_vector = np.zeros(end_w_iteration * end_h_iteration * 57)
-            green_props_vector = np.zeros(end_w_iteration * end_h_iteration * 57)
-            blue_props_vector = np.zeros(end_w_iteration * end_h_iteration * 57)
-    '''
+
     gray_lbp_list = []
     red_lbp_list = []
     green_lbp_list = []
@@ -321,7 +301,7 @@ def getCOSSimilarity(v1,v2):
 
 
 
-wb=excelFunc.getExcelWorkBook('./Book1.xlsx')
+wb=openpyxl.open('./Book1.xlsx')
 sheet = wb.worksheets[0]
 print(type(sheet))
 gray_prop_vect_arr =[]
@@ -329,12 +309,13 @@ red_prop_vect_arr =[]
 green_prop_vect_arr =[]
 blue_prop_vect_arr =[]
 blok_size=64
-for cellObj in sheet['A65':'A79']:
+for cellObj in sheet['A3':'A18']:
       for cell in cellObj:
-              image_C=cv.imread("C:/Users/Palaguto_va/PycharmProjects/pythonProject1/FotoCore/"+cell.value)
+              image_C=cv.imread("./FotoCore/"+cell.value)
               top_Y=sheet.cell(cell.row,13).value
               base_Y = sheet.cell(cell.row, 14).value
               image_C=copyPartMatrix(image_C, 10, 138, top_Y, base_Y)
+              cv.imwrite("./tmp/"+cell.value+".jpg", image_C)
               gray_prop_V, red_prop_V, green_prop_V, blue_prop_V = getLBPPropsForPiece(image_C, blok_size)
               gray_prop_vect_arr.append(gray_prop_V)
               red_prop_vect_arr.append(red_prop_V)
@@ -368,6 +349,7 @@ for i in range(0, len(gray_prop_vect_arr)-1):
         tmp_prop_v = np.zeros(len(blue_prop_v1))
         tmp_prop_v[0:len(blue_prop_v2)] = blue_prop_v2[0:len(blue_prop_v2)]
         cos_similarity = (cos_similarity + getCOSSimilarity(blue_prop_v1, tmp_prop_v))/4
+        print(i, "   ", sheet.cell(i + 3, 1).value, "-", sheet.cell(i + 4, 1).value, "                ", cos_similarity)
     else:
         tmp_prop_v=np.zeros(len(gray_prop_v2))
         tmp_prop_v[0:len(gray_prop_v1)]=gray_prop_v1[0:len(gray_prop_v1)]
@@ -381,7 +363,8 @@ for i in range(0, len(gray_prop_vect_arr)-1):
         tmp_prop_v = np.zeros(len(blue_prop_v2))
         tmp_prop_v[0:len(blue_prop_v1)] = blue_prop_v1[0:len(blue_prop_v1)]
         cos_similarity = (cos_similarity + getCOSSimilarity(blue_prop_v2, tmp_prop_v))/4
-    print(sheet.cell(i+65,1).value,"-",sheet.cell(i+66,1).value,"                ",cos_similarity)
+        print(i, "   ", sheet.cell(i + 3, 1).value, "-", sheet.cell(i + 4, 1).value, "                ", cos_similarity)
+
     #if cos_similarity < 0.75:
        #print(sheet.cell(i+65,1).value,"-",sheet.cell(i+66,1).value,"                ",cos_similarity)
 '''
@@ -407,24 +390,6 @@ for i in range(0, len(prop_vect_arr)-1):
 #конец обрезаем длинный
 '''
 
-= (ЕСЛИ(P5>Q6;1;0)*128+   ЕСЛИ(Q5>Q6;1;0)*64 +ЕСЛИ(R5>Q6;1;0)*32 +ЕСЛИ(R6>Q6;1;0)*16   +ЕСЛИ(R7>Q6;1;0)*8 +ЕСЛИ(Q7>Q6;1;0)*4 +ЕСЛИ(P7>Q6;1;0)*2 +ЕСЛИ(P6>Q6;1;0)                 )
 
-0	0	0	0	0	0	0	0	0
-0	99,092	122,092	119,918	136,619	123,918	128,619	127,918	0
-0	105,619	117,608	111,619	116,391	118,918	107,918	114,391	0
-0	133,249	124,608	126,847	125,918	132,249	117,608	114,01	0
-0	124,651	127,619	127,608	126,608	130,847	121,619	133,608	0
-0	119,651	132,608	135,01	137,651	136,249	129,249	130,01	0
-0	134,651	124,608	121,619	117,918	125,391	137,918	132,619	0
-0	121,249	119,608	116,559	120,619	118,608	122,01	121,516	0
-0	0	0	0	0	0	0	0	0
-								
-0	28	0	17	0	17	0	1	
-1	60	110	255	254	230	255	194	
-2	0	31	6	31	0	143	71	
-3	88	140	15	191	70	159	0	
-4	124	18	16	0	9	189	70	
-5	0	97	225	253	240	0	1	
-6	96	225	241	160	113	224	193	
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
