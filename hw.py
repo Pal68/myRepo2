@@ -33,7 +33,7 @@ def getLBPMatrix(img,chanel):
     for i in range(result_matrix.shape[0]):
        for j in range(result_matrix.shape[1]):
             # Calculate LBP for red channel
-            data=((result_matrix[i, j] - result_matrix[max(0, i-1):min(result_matrix.shape[0], i+2), max(0, j-1):min(result_matrix.shape[1], j+2)]) > 0)
+            data=((result_matrix[i, j] - result_matrix[max(0, i-1):min(result_matrix.shape[0], i+2), max(0, j-1):min(result_matrix.shape[1], j+2)]) <= 0)
             c=np.zeros((3,3))
             s = data.size
             match s :
@@ -129,16 +129,30 @@ def getGrayLBPMatrix(img):
 
 
 def getUniFormLBPHist(matr):
-    tmp = ((57) not in {1, 2, 3, 4, 6, 7, 8, 12, 14, 15, 16, 24, 28, 30, 31, 32, 48, 56, 60, 62, 63, 64, 96, 112, 120,
+    uniform_lbp= [1, 2, 3, 4, 6, 7, 8, 12, 14, 15, 16, 24, 28, 30, 31, 32, 48, 56, 60, 62, 63, 64, 96, 112, 120,
                        124, 126, 127, 128, 129, 131, 135, 143, 159, 191, 192, 193, 195, 199, 207, 223, 224, 225, 227,
-                       231, 239, 240, 241, 243, 247, 248, 249, 251, 252, 253, 254})
-    matr=matr*tmp
-    lbpHist, bins = np.histogram(a=matr,bins=57,range=(0,57),density=True)
+                       231, 239, 240, 241, 243, 247, 248, 249, 251, 252, 253, 254]
+    bins = [1, 2, 3, 4, 6, 7, 8, 12, 14, 15, 16, 24, 28, 30, 31, 32, 48, 56, 60, 62, 63, 64, 96, 112, 120,
+                       124, 126, 127, 128, 129, 131, 135, 143, 159, 191, 192, 193, 195, 199, 207, 223, 224, 225, 227,
+                       231, 239, 240, 241, 243, 247, 248, 249, 251, 252, 253, 254,255,256]
+    for i in range(0, matr.shape[0]):
+        for j in range(0,matr.shape[1]):
+            if matr[i, j] not in uniform_lbp:
+                matr[i,j]=255
+
+    lbpHist, bins = np.histogram(a=matr,bins=bins,density=False)
     return lbpHist, bins
 #end     getUnoFormLBPHist
 
+def getLBPHist(matr):
+    lbpHist, bins = np.histogram(a=matr, bins=np.arange(0,255), density=False)
+    return lbpHist, bins
+# end     getLBPHist
+
+
+
 def copyPartMatrix(matr, leftX, rightX, topY, baseY):
-    result = matr[topY:baseY, leftX:rightX, 0:3]
+    result = matr[topY:baseY+1, leftX:rightX+1, 0:3]
     return result
 #end     copyPartMatrix
 
@@ -308,8 +322,8 @@ gray_prop_vect_arr =[]
 red_prop_vect_arr =[]
 green_prop_vect_arr =[]
 blue_prop_vect_arr =[]
-blok_size=64
-for cellObj in sheet['A3':'A18']:
+blok_size=128
+for cellObj in sheet['A3':'A6']:
       for cell in cellObj:
               image_C=cv.imread("./FotoCore/"+cell.value)
               top_Y=sheet.cell(cell.row,13).value
@@ -342,13 +356,13 @@ for i in range(0, len(gray_prop_vect_arr)-1):
         cos_similarity = getCOSSimilarity(gray_prop_v1, tmp_prop_v)
         tmp_prop_v = np.zeros(len(red_prop_v1))
         tmp_prop_v[0:len(red_prop_v2)] = red_prop_v2[0:len(red_prop_v2)]
-        cos_similarity = cos_similarity + getCOSSimilarity(red_prop_v1, tmp_prop_v)
+        cos_similarityR =getCOSSimilarity(red_prop_v1, tmp_prop_v)
         tmp_prop_v = np.zeros(len(green_prop_v1))
         tmp_prop_v[0:len(green_prop_v2)] = green_prop_v2[0:len(green_prop_v2)]
-        cos_similarity = cos_similarity + getCOSSimilarity(green_prop_v1, tmp_prop_v)
+        cos_similarityG = getCOSSimilarity(green_prop_v1, tmp_prop_v)
         tmp_prop_v = np.zeros(len(blue_prop_v1))
         tmp_prop_v[0:len(blue_prop_v2)] = blue_prop_v2[0:len(blue_prop_v2)]
-        cos_similarity = (cos_similarity + getCOSSimilarity(blue_prop_v1, tmp_prop_v))/4
+        cos_similarityB = getCOSSimilarity(blue_prop_v1, tmp_prop_v)
         print(i, "   ", sheet.cell(i + 3, 1).value, "-", sheet.cell(i + 4, 1).value, "                ", cos_similarity)
     else:
         tmp_prop_v=np.zeros(len(gray_prop_v2))
@@ -356,13 +370,13 @@ for i in range(0, len(gray_prop_vect_arr)-1):
         cos_similarity = getCOSSimilarity(gray_prop_v2, tmp_prop_v)
         tmp_prop_v = np.zeros(len(red_prop_v2))
         tmp_prop_v[0:len(red_prop_v1)] = red_prop_v1[0:len(red_prop_v1)]
-        cos_similarity = cos_similarity + getCOSSimilarity(red_prop_v2, tmp_prop_v)
+        cos_similarityR = getCOSSimilarity(red_prop_v2, tmp_prop_v)
         tmp_prop_v = np.zeros(len(green_prop_v2))
         tmp_prop_v[0:len(green_prop_v1)] = green_prop_v1[0:len(green_prop_v1)]
-        cos_similarity = cos_similarity + getCOSSimilarity(green_prop_v2, tmp_prop_v)
+        cos_similarityG = getCOSSimilarity(green_prop_v2, tmp_prop_v)
         tmp_prop_v = np.zeros(len(blue_prop_v2))
         tmp_prop_v[0:len(blue_prop_v1)] = blue_prop_v1[0:len(blue_prop_v1)]
-        cos_similarity = (cos_similarity + getCOSSimilarity(blue_prop_v2, tmp_prop_v))/4
+        cos_similarityB = getCOSSimilarity(blue_prop_v2, tmp_prop_v)
         print(i, "   ", sheet.cell(i + 3, 1).value, "-", sheet.cell(i + 4, 1).value, "                ", cos_similarity)
 
     #if cos_similarity < 0.75:
