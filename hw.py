@@ -5,12 +5,10 @@
 import cv2 as cv
 import numpy as np
 import os as os
-
-import openpyxl
 from openpyxl import load_workbook
 from openpyxl.utils import get_column_letter, column_index_from_string
 
-
+import excelFunc
 
 
 def print_hi(name):
@@ -71,7 +69,7 @@ def getLBPMatrix(img,chanel):
                 jj=jj+1
             for ii in range(c.shape[0]-2,0,-1):
                 tmpV[jj] = c[ii,0]
-            mnojiteli=(128,64,32,16,8,4,2,1)
+            mnojiteli = (128, 64, 32, 16, 8, 4, 2, 1)
             lbp[i, j] = np.sum(tmpV * mnojiteli)
     return lbp
 #end getLBPmatrix
@@ -139,24 +137,16 @@ def getUniFormLBPHist(matr):
         for j in range(0,matr.shape[1]):
             if matr[i, j] not in uniform_lbp:
                 matr[i,j]=255
-
     lbpHist, bins = np.histogram(a=matr,bins=bins,density=False)
     return lbpHist, bins
 #end     getUnoFormLBPHist
-
-def getLBPHist(matr):
-    lbpHist, bins = np.histogram(a=matr, bins=np.arange(0,255), density=False)
-    return lbpHist, bins
-# end     getLBPHist
-
-
 
 def copyPartMatrix(matr, leftX, rightX, topY, baseY):
     result = matr[topY:baseY+1, leftX:rightX+1, 0:3]
     return result
 #end     copyPartMatrix
 
-def getLBPPropsForPiece(matr, blok_size):
+def getLBPPropsForPiece(matr, blok_size, tmpName):
     # в зависимости от размера изображения расчитываем количестов итераций и размер вектора свойств для слоя
     end_w_iteration = matr.shape[1] // blok_size
     if end_w_iteration == 0:
@@ -170,79 +160,105 @@ def getLBPPropsForPiece(matr, blok_size):
         end_h_iteration = 1
     else:
         h_over = (matr.shape[0]) - end_h_iteration * blok_size
-
+    '''
+    if w_over > 3:
+        if h_over > 3:
+            gray_props_vector = np.zeros(((end_w_iteration + 1) * (end_h_iteration + 1)) * 57)
+            red_props_vector = np.zeros(((end_w_iteration + 1) * (end_h_iteration + 1)) * 57)
+            green_props_vector = np.zeros(((end_w_iteration + 1) * (end_h_iteration + 1)) * 57)
+            blue_props_vector = np.zeros(((end_w_iteration + 1) * (end_h_iteration + 1)) * 57)
+        else:
+            gray_props_vector = np.zeros((end_w_iteration + 1) * end_h_iteration * 57)
+            red_props_vector = np.zeros((end_w_iteration + 1) * end_h_iteration * 57)
+            green_props_vector = np.zeros((end_w_iteration + 1) * end_h_iteration * 57)
+            blue_props_vector = np.zeros((end_w_iteration + 1) * end_h_iteration * 57)
+    else:
+        if h_over > 3:
+            gray_props_vector = np.zeros(end_w_iteration * (end_h_iteration + 1) * 57)
+            red_props_vector = np.zeros(end_w_iteration * (end_h_iteration + 1) * 57)
+            green_props_vector = np.zeros(end_w_iteration * (end_h_iteration + 1) * 57)
+            blue_props_vector = np.zeros(end_w_iteration * (end_h_iteration + 1) * 57)
+        else:
+            gray_props_vector = np.zeros(end_w_iteration * end_h_iteration * 57)
+            red_props_vector = np.zeros(end_w_iteration * end_h_iteration * 57)
+            green_props_vector = np.zeros(end_w_iteration * end_h_iteration * 57)
+            blue_props_vector = np.zeros(end_w_iteration * end_h_iteration * 57)
+    '''
     gray_lbp_list = []
     red_lbp_list = []
     green_lbp_list = []
     blue_lbp_list = []
+    tmpLBPMatrix = np.zeros((int(end_h_iteration*blok_size), int(end_w_iteration*blok_size)))
     for ii in range(0, end_h_iteration):
         for jj in range(0, end_w_iteration):
             cyr_blok_matrix = copyPartMatrix(matr, jj * blok_size, jj * blok_size + (blok_size - 1), ii * blok_size,
                                            ii * blok_size + (blok_size - 1))
             gray_blok_matrix = getLBPMatrix(cyr_blok_matrix,3)
-            red_blok_matrix = getLBPMatrix(cyr_blok_matrix, 0)
-            green_blok_matrix = getLBPMatrix(cyr_blok_matrix, 1)
-            blue_blok_matrix = getLBPMatrix(cyr_blok_matrix, 2)
+            tmpLBPMatrix[ii*gray_blok_matrix.shape[0]:ii*gray_blok_matrix.shape[0]+gray_blok_matrix.shape[0],jj*gray_blok_matrix.shape[1]:jj*gray_blok_matrix.shape[1]+gray_blok_matrix.shape[1]]=gray_blok_matrix
+            # red_blok_matrix = getLBPMatrix(cyr_blok_matrix, 0)
+            # green_blok_matrix = getLBPMatrix(cyr_blok_matrix, 1)
+            # blue_blok_matrix = getLBPMatrix(cyr_blok_matrix, 2)
             gray_LBP_hist, gray_LBP_bin = getUniFormLBPHist(gray_blok_matrix)
-            red_LBP_hist, red_LBP_bin = getUniFormLBPHist(red_blok_matrix)
-            green_LBP_hist, green_LBP_bin = getUniFormLBPHist(green_blok_matrix)
-            blue_LBP_hist, blue_LBP_bin = getUniFormLBPHist(blue_blok_matrix)
+            # red_LBP_hist, red_LBP_bin = getUniFormLBPHist(red_blok_matrix)
+            # green_LBP_hist, green_LBP_bin = getUniFormLBPHist(green_blok_matrix)
+            # blue_LBP_hist, blue_LBP_bin = getUniFormLBPHist(blue_blok_matrix)
             for k in range(0, gray_LBP_hist.shape[0]):
                 gray_lbp_list.append(gray_LBP_hist[k])
-                red_lbp_list.append(red_LBP_hist[k])
-                green_lbp_list.append(green_LBP_hist[k])
-                blue_lbp_list.append(blue_LBP_hist[k])
+                # red_lbp_list.append(red_LBP_hist[k])
+                # green_lbp_list.append(green_LBP_hist[k])
+                # blue_lbp_list.append(blue_LBP_hist[k])
         if w_over > 3:
             cyr_blok_matrix = copyPartMatrix(matr, matr.shape[1] - w_over + 1, matr.shape[1] - 1, ii * blok_size,
                                            ii * blok_size + (blok_size - 1))
             gray_blok_matrix = getLBPMatrix(cyr_blok_matrix,3)
-            red_blok_matrix = getLBPMatrix(cyr_blok_matrix, 0)
-            green_blok_matrix = getLBPMatrix(cyr_blok_matrix, 1)
-            blue_blok_matrix = getLBPMatrix(cyr_blok_matrix, 2)
+            # red_blok_matrix = getLBPMatrix(cyr_blok_matrix, 0)
+            # green_blok_matrix = getLBPMatrix(cyr_blok_matrix, 1)
+            # blue_blok_matrix = getLBPMatrix(cyr_blok_matrix, 2)
             gray_LBP_hist, gray_LBP_bin = getUniFormLBPHist(gray_blok_matrix)
-            red_LBP_hist, red_LBP_bin = getUniFormLBPHist(red_blok_matrix)
-            green_LBP_hist, green_LBP_bin = getUniFormLBPHist(green_blok_matrix)
-            blue_LBP_hist, blue_LBP_bin = getUniFormLBPHist(blue_blok_matrix)
+            # red_LBP_hist, red_LBP_bin = getUniFormLBPHist(red_blok_matrix)
+            # green_LBP_hist, green_LBP_bin = getUniFormLBPHist(green_blok_matrix)
+            # blue_LBP_hist, blue_LBP_bin = getUniFormLBPHist(blue_blok_matrix)
             for k in range(0, gray_LBP_hist.shape[0]):
                 gray_lbp_list.append(gray_LBP_hist[k])
-                red_lbp_list.append(red_LBP_hist[k])
-                green_lbp_list.append(green_LBP_hist[k])
-                blue_lbp_list.append(blue_LBP_hist[k])
+                # red_lbp_list.append(red_LBP_hist[k])
+                # green_lbp_list.append(green_LBP_hist[k])
+                # blue_lbp_list.append(blue_LBP_hist[k])
     if h_over > 3:
         for jj in range(0, end_w_iteration):
             cyr_blok_matrix = copyPartMatrix(matr, jj * blok_size, jj * blok_size + (blok_size - 1),
                                            matr.shape[0] - h_over + 1, matr.shape[0] - 1)
             gray_blok_matrix = getLBPMatrix(cyr_blok_matrix,3)
-            red_blok_matrix = getLBPMatrix(cyr_blok_matrix, 0)
-            green_blok_matrix = getLBPMatrix(cyr_blok_matrix, 1)
-            blue_blok_matrix = getLBPMatrix(cyr_blok_matrix, 2)
+            # red_blok_matrix = getLBPMatrix(cyr_blok_matrix, 0)
+            # green_blok_matrix = getLBPMatrix(cyr_blok_matrix, 1)
+            # blue_blok_matrix = getLBPMatrix(cyr_blok_matrix, 2)
             gray_LBP_hist, gray_LBP_bin = getUniFormLBPHist(gray_blok_matrix)
-            red_LBP_hist, red_LBP_bin = getUniFormLBPHist(red_blok_matrix)
-            green_LBP_hist, green_LBP_bin = getUniFormLBPHist(green_blok_matrix)
-            blue_LBP_hist, blue_LBP_bin = getUniFormLBPHist(blue_blok_matrix)
+            # red_LBP_hist, red_LBP_bin = getUniFormLBPHist(red_blok_matrix)
+            # green_LBP_hist, green_LBP_bin = getUniFormLBPHist(green_blok_matrix)
+            # blue_LBP_hist, blue_LBP_bin = getUniFormLBPHist(blue_blok_matrix)
             for k in range(0, gray_LBP_hist.shape[0]):
                 gray_lbp_list.append(gray_LBP_hist[k])
-                red_lbp_list.append(red_LBP_hist[k])
-                green_lbp_list.append(green_LBP_hist[k])
-                blue_lbp_list.append(blue_LBP_hist[k])
+                # red_lbp_list.append(red_LBP_hist[k])
+                # green_lbp_list.append(green_LBP_hist[k])
+                # blue_lbp_list.append(blue_LBP_hist[k])
     if w_over > 3:
         cyr_blok_matrix = copyPartMatrix(matr, matr.shape[1] - w_over + 1, matr.shape[1] - 1, matr.shape[0] - h_over + 1,
                                        matr.shape[0] - 1)
         gray_blok_matrix = getLBPMatrix(cyr_blok_matrix,3)
-        red_blok_matrix = getLBPMatrix(cyr_blok_matrix, 0)
-        green_blok_matrix = getLBPMatrix(cyr_blok_matrix, 1)
-        blue_blok_matrix = getLBPMatrix(cyr_blok_matrix, 2)
+        # red_blok_matrix = getLBPMatrix(cyr_blok_matrix, 0)
+        # green_blok_matrix = getLBPMatrix(cyr_blok_matrix, 1)
+        # blue_blok_matrix = getLBPMatrix(cyr_blok_matrix, 2)
         gray_LBP_hist, gray_LBP_bin = getUniFormLBPHist(gray_blok_matrix)
-        red_LBP_hist, red_LBP_bin = getUniFormLBPHist(red_blok_matrix)
-        green_LBP_hist, green_LBP_bin = getUniFormLBPHist(green_blok_matrix)
-        blue_LBP_hist, blue_LBP_bin = getUniFormLBPHist(blue_blok_matrix)
+        # red_LBP_hist, red_LBP_bin = getUniFormLBPHist(red_blok_matrix)
+        # green_LBP_hist, green_LBP_bin = getUniFormLBPHist(green_blok_matrix)
+        # blue_LBP_hist, blue_LBP_bin = getUniFormLBPHist(blue_blok_matrix)
         for k in range(0, gray_LBP_hist.shape[0]):
             gray_lbp_list.append(gray_LBP_hist[k])
-            red_lbp_list.append(red_LBP_hist[k])
-            green_lbp_list.append(green_LBP_hist[k])
-            blue_lbp_list.append(blue_LBP_hist[k])
-
+            # red_lbp_list.append(red_LBP_hist[k])
+            # green_lbp_list.append(green_LBP_hist[k])
+            # blue_lbp_list.append(blue_LBP_hist[k])
+    cv.imwrite("./tmp/" + tmpName + "_lbp.jpg", tmpLBPMatrix)
     return gray_lbp_list, red_lbp_list, green_lbp_list, blue_lbp_list
+
 #end def getLBPPropsForPiece
 
 def getLBPPropsForLayer(matr, blokSize):
@@ -315,22 +331,22 @@ def getCOSSimilarity(v1,v2):
 
 
 
-wb=openpyxl.open('./Book1.xlsx')
+wb=excelFunc.getExcelWorkBook('./Book1.xlsx')
 sheet = wb.worksheets[0]
 print(type(sheet))
 gray_prop_vect_arr =[]
 red_prop_vect_arr =[]
 green_prop_vect_arr =[]
 blue_prop_vect_arr =[]
-blok_size=128
-for cellObj in sheet['A3':'A6']:
+blok_size=64
+for cellObj in sheet['A3':'A31']:
       for cell in cellObj:
-              image_C=cv.imread("./FotoCore/"+cell.value)
+              image_C=cv.imread("C:/Users/Palaguto_va/PycharmProjects/pythonProject1/FotoCore/"+cell.value)
               top_Y=sheet.cell(cell.row,13).value
               base_Y = sheet.cell(cell.row, 14).value
               image_C=copyPartMatrix(image_C, 10, 138, top_Y, base_Y)
-              cv.imwrite("./tmp/"+cell.value+".jpg", image_C)
-              gray_prop_V, red_prop_V, green_prop_V, blue_prop_V = getLBPPropsForPiece(image_C, blok_size)
+              cv.imwrite("./tmp/"+cell.value[0:len(cell.value)-4]+".jpg", image_C)
+              gray_prop_V, red_prop_V, green_prop_V, blue_prop_V = getLBPPropsForPiece(image_C, blok_size,cell.value[0:len(cell.value)-4])
               gray_prop_vect_arr.append(gray_prop_V)
               red_prop_vect_arr.append(red_prop_V)
               green_prop_vect_arr.append(green_prop_V)
@@ -351,36 +367,55 @@ for i in range(0, len(gray_prop_vect_arr)-1):
     blue_prop_v1 = blue_prop_vect_arr[i]
     blue_prop_v2 = blue_prop_vect_arr[i + 1]
     if len(gray_prop_v1)>=len(gray_prop_v2):
-        tmp_prop_v=np.zeros(len(gray_prop_v1))
-        tmp_prop_v[0:len(gray_prop_v2)]=gray_prop_v2[0:len(gray_prop_v2)]
-        cos_similarity = getCOSSimilarity(gray_prop_v1, tmp_prop_v)
-        tmp_prop_v = np.zeros(len(red_prop_v1))
-        tmp_prop_v[0:len(red_prop_v2)] = red_prop_v2[0:len(red_prop_v2)]
-        cos_similarityR =getCOSSimilarity(red_prop_v1, tmp_prop_v)
-        tmp_prop_v = np.zeros(len(green_prop_v1))
-        tmp_prop_v[0:len(green_prop_v2)] = green_prop_v2[0:len(green_prop_v2)]
-        cos_similarityG = getCOSSimilarity(green_prop_v1, tmp_prop_v)
-        tmp_prop_v = np.zeros(len(blue_prop_v1))
-        tmp_prop_v[0:len(blue_prop_v2)] = blue_prop_v2[0:len(blue_prop_v2)]
-        cos_similarityB = getCOSSimilarity(blue_prop_v1, tmp_prop_v)
-        print(i, "   ", sheet.cell(i + 3, 1).value, "-", sheet.cell(i + 4, 1).value, "                ", cos_similarity)
+        if len(gray_prop_v1)/len(gray_prop_v2)<2:
+            tmp_prop_v=np.zeros(len(gray_prop_v1))
+            tmp_prop_v[0:len(gray_prop_v2)]=gray_prop_v2[0:len(gray_prop_v2)]
+            cos_similarity = getCOSSimilarity(gray_prop_v1, tmp_prop_v)
+            tmp_prop_v = np.zeros(len(red_prop_v1))
+            tmp_prop_v[0:len(red_prop_v2)] = red_prop_v2[0:len(red_prop_v2)]
+            cos_similarity_R = getCOSSimilarity(red_prop_v1, tmp_prop_v)
+            tmp_prop_v = np.zeros(len(green_prop_v1))
+            tmp_prop_v[0:len(green_prop_v2)] = green_prop_v2[0:len(green_prop_v2)]
+            cos_similarity_G = getCOSSimilarity(green_prop_v1, tmp_prop_v)
+            tmp_prop_v = np.zeros(len(blue_prop_v1))
+            tmp_prop_v[0:len(blue_prop_v2)] = blue_prop_v2[0:len(blue_prop_v2)]
+            cos_similarity_B = getCOSSimilarity(blue_prop_v1, tmp_prop_v)
+        else:
+            end_h=len(gray_prop_v1)//len(gray_prop_v2)
+            cos_similarity=-1
+            for ii in range(0,1):
+                tmp_prop_v = np.zeros(len(gray_prop_v2))
+                tmp_prop_v[0:len(gray_prop_v2)] = gray_prop_v1[0:len(gray_prop_v2)]
+                tmp_cos_similarity = getCOSSimilarity(gray_prop_v2, tmp_prop_v)
+                if tmp_cos_similarity>cos_similarity:
+                    cos_similarity=tmp_cos_similarity
     else:
-        tmp_prop_v=np.zeros(len(gray_prop_v2))
-        tmp_prop_v[0:len(gray_prop_v1)]=gray_prop_v1[0:len(gray_prop_v1)]
-        cos_similarity = getCOSSimilarity(gray_prop_v2, tmp_prop_v)
-        tmp_prop_v = np.zeros(len(red_prop_v2))
-        tmp_prop_v[0:len(red_prop_v1)] = red_prop_v1[0:len(red_prop_v1)]
-        cos_similarityR = getCOSSimilarity(red_prop_v2, tmp_prop_v)
-        tmp_prop_v = np.zeros(len(green_prop_v2))
-        tmp_prop_v[0:len(green_prop_v1)] = green_prop_v1[0:len(green_prop_v1)]
-        cos_similarityG = getCOSSimilarity(green_prop_v2, tmp_prop_v)
-        tmp_prop_v = np.zeros(len(blue_prop_v2))
-        tmp_prop_v[0:len(blue_prop_v1)] = blue_prop_v1[0:len(blue_prop_v1)]
-        cos_similarityB = getCOSSimilarity(blue_prop_v2, tmp_prop_v)
-        print(i, "   ", sheet.cell(i + 3, 1).value, "-", sheet.cell(i + 4, 1).value, "                ", cos_similarity)
+        if len(gray_prop_v2) / len(gray_prop_v1) < 2:
+            tmp_prop_v=np.zeros(len(gray_prop_v2))
+            tmp_prop_v[0:len(gray_prop_v1)]=gray_prop_v1[0:len(gray_prop_v1)]
+            cos_similarity = getCOSSimilarity(gray_prop_v2, tmp_prop_v)
+            tmp_prop_v = np.zeros(len(red_prop_v2))
+            tmp_prop_v[0:len(red_prop_v1)] = red_prop_v1[0:len(red_prop_v1)]
+            cos_similarity_R = getCOSSimilarity(red_prop_v2, tmp_prop_v)
+            tmp_prop_v = np.zeros(len(green_prop_v2))
+            tmp_prop_v[0:len(green_prop_v1)] = green_prop_v1[0:len(green_prop_v1)]
+            cos_similarity_G = getCOSSimilarity(green_prop_v2, tmp_prop_v)
+            tmp_prop_v = np.zeros(len(blue_prop_v2))
+            tmp_prop_v[0:len(blue_prop_v1)] = blue_prop_v1[0:len(blue_prop_v1)]
+            cos_similarity_b = getCOSSimilarity(blue_prop_v2, tmp_prop_v)
+        else:
+            end_h=len(gray_prop_v2)//len(gray_prop_v1)
+            cos_similarity=-1
+            for ii in range(0,1):
+                tmp_prop_v = np.zeros(len(gray_prop_v1))
+                tmp_prop_v[0:len(gray_prop_v1)] = gray_prop_v2[0:len(gray_prop_v1)]
+                tmp_cos_similarity = getCOSSimilarity(gray_prop_v1, tmp_prop_v)
+                if tmp_cos_similarity>cos_similarity:
+                    cos_similarity=tmp_cos_similarity
 
-    #if cos_similarity < 0.75:
-       #print(sheet.cell(i+65,1).value,"-",sheet.cell(i+66,1).value,"                ",cos_similarity)
+    print(sheet.cell(i+3,1).value,"-",sheet.cell(i+4,1).value,"                ",round(cos_similarity,5))
+    # if round(cos_similarity,1) < 0.9:
+    #    print(sheet.cell(i+3,1).value,"-",sheet.cell(i+4,1).value,"                ",cos_similarity)
 '''
 #-----------------------------------------------------------------------------------
 #конец добиваем нулями
