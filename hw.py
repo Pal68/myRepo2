@@ -5,10 +5,11 @@
 import cv2 as cv
 import numpy as np
 import os as os
-from openpyxl import load_workbook
+from openpyxl import load_workbook as lwb
+from openpyxl.reader.excel import load_workbook
 from openpyxl.utils import get_column_letter, column_index_from_string
 
-import excelFunc
+#import excelFunc
 
 
 def print_hi(name):
@@ -27,11 +28,12 @@ def getLBPMatrix(img,chanel):
     else:
         result_matrix = 0.299 * img[:, :, 0] + 0.587 * img[:, :, 1] + 0.114 * img[:, :, 2]
 
+    mean_delta=getMeanDelta(result_matrix)
     lbp = np.zeros((result_matrix.shape[0], result_matrix.shape[1]))
     for i in range(result_matrix.shape[0]):
        for j in range(result_matrix.shape[1]):
             # Calculate LBP for red channel
-            data=((result_matrix[i, j] - result_matrix[max(0, i-1):min(result_matrix.shape[0], i+2), max(0, j-1):min(result_matrix.shape[1], j+2)]) <= 0)
+            data=((result_matrix[i, j] - result_matrix[max(0, i-1):min(result_matrix.shape[0], i+2), max(0, j-1):min(result_matrix.shape[1], j+2)]) <= mean_delta*1)
             c=np.zeros((3,3))
             s = data.size
             match s :
@@ -138,6 +140,7 @@ def getUniFormLBPHist(matr):
             if matr[i, j] not in uniform_lbp:
                 matr[i,j]=255
     lbpHist, bins = np.histogram(a=matr,bins=bins,density=False)
+    #lbpHist=lbpHist*100
     return lbpHist, bins
 #end     getUnoFormLBPHist
 
@@ -325,23 +328,32 @@ def getCOSSimilarity(v1,v2):
     return result
 #end getCOSSimilarity
 
+def getMeanDelta(matr):
+    mean_delta=0.0
+    for i in range(1, matr.shape[0] -1):
+        for j in range(1, matr.shape[1]-1):
+            mean_delta =mean_delta+ (abs(matr[i, j] - matr[i, j - 1]) + abs(matr[i, j] - matr[i - 1, j - 1]) +
+                           abs(matr[i, j] - matr[i - 1, j]) + abs(matr[i, j] - matr[i - 1, j + 1])) / 4.0
+    mean_delta /= (matr.shape[1]-2 ) * (matr.shape[0]-2 )  # normalizing
+    mean_delta *=  -1
+    return mean_delta
+#end def getMeanDelta(matr):
 
 
 
 
 
-
-wb=excelFunc.getExcelWorkBook('./Book1.xlsx')
+wb= load_workbook('./Book1.xlsx')
 sheet = wb.worksheets[0]
 print(type(sheet))
 gray_prop_vect_arr =[]
 red_prop_vect_arr =[]
 green_prop_vect_arr =[]
 blue_prop_vect_arr =[]
-blok_size=64
-for cellObj in sheet['A3':'A31']:
+blok_size=32
+for cellObj in sheet['A3':'A18']:
       for cell in cellObj:
-              image_C=cv.imread("C:/Users/Palaguto_va/PycharmProjects/pythonProject1/FotoCore/"+cell.value)
+              image_C=cv.imread("C:/Users/user/Documents/GitHub/myRepo2/FotoCore/"+cell.value)
               top_Y=sheet.cell(cell.row,13).value
               base_Y = sheet.cell(cell.row, 14).value
               image_C=copyPartMatrix(image_C, 10, 138, top_Y, base_Y)
