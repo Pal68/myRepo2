@@ -404,7 +404,10 @@ red_prop_vect_arr =[]
 green_prop_vect_arr =[]
 blue_prop_vect_arr =[]
 blok_size=32
-for cellObj in sheet['A3':'A18']:
+
+start_row=51
+end_row=78
+for cellObj in sheet['A'+str(start_row):'A'+str(end_row)]:
       for cell in cellObj:
               image_C=cv.imread("C:/Users/user/Documents/GitHub/myRepo2/FotoCore/"+cell.value)
               top_Y=sheet.cell(cell.row,13).value
@@ -481,7 +484,7 @@ for i in range(0, len(gray_prop_vect_arr)-1):
 
     print(sheet.cell(i+3,1).value,"-",sheet.cell(i+4,1).value,"                ",round(cos_similarity,5))
     # if round(cos_similarity,1) < 0.9:
-    #    print(sheet.cell(i+3,1).value,"-",sheet.cell(i+4,1).value,"                ",cos_similarity)
+    #    print(sheet.cell(i+start_row,1).value,"-",sheet.cell(i+start_row+1,1).value,"                ",cos_similarity)
 '''
 #-----------------------------------------------------------------------------------
 #конец добиваем нулями
