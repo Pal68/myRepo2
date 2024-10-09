@@ -149,6 +149,59 @@ def copyPartMatrix(matr, leftX, rightX, topY, baseY):
     return result
 #end     copyPartMatrix
 
+def getLBPPropsForPieceWithOverlap(matr,blok_size):
+    # в зависимости от размера изображения расчитываем количестов итераций и размер вектора свойств для слоя
+    end_w_iteration = (matr.shape[1] // blok_size)
+    if end_w_iteration == 0:
+        w_over = 0
+        end_w_iteration = 1
+    else:
+        w_over = ((matr.shape[1]) - end_w_iteration * blok_size)
+    end_w_iteration = end_w_iteration * 2 - 1
+    end_h_iteration = ((matr.shape[0]) // blok_size)
+    if end_h_iteration == 0:
+        h_over = 0
+        end_h_iteration = 1
+    else:
+        h_over = (matr.shape[0]) - end_h_iteration * blok_size
+    end_h_iteration = end_h_iteration*2-1
+    gray_lbp_list = []
+    #tmpLBPMatrix = np.zeros((int(end_h_iteration * blok_size), int(end_w_iteration * blok_size)))
+    for ii in range(0, end_h_iteration):
+        for jj in range(0, end_w_iteration):
+            cyr_blok_matrix = copyPartMatrix(matr, jj * blok_size//2, jj * blok_size//2 + (blok_size - 1), ii * blok_size//2,
+                                             ii * blok_size//2 + (blok_size - 1))
+            gray_blok_matrix = getLBPMatrix(cyr_blok_matrix, 3)
+            gray_LBP_hist, gray_LBP_bin = getUniFormLBPHist(gray_blok_matrix)
+            for k in range(0, gray_LBP_hist.shape[0]):
+                gray_lbp_list.append(gray_LBP_hist[k])
+        if w_over > 3:
+            cyr_blok_matrix = copyPartMatrix(matr, matr.shape[1] - w_over + 1, matr.shape[1] - 1, ii * blok_size//2,
+                                             ii * blok_size//2 + (blok_size - 1))
+            gray_blok_matrix = getLBPMatrix(cyr_blok_matrix, 3)
+            gray_LBP_hist, gray_LBP_bin = getUniFormLBPHist(gray_blok_matrix)
+            for k in range(0, gray_LBP_hist.shape[0]):
+                gray_lbp_list.append(gray_LBP_hist[k])
+    if h_over > 3:
+        for jj in range(0, end_w_iteration):
+            cyr_blok_matrix = copyPartMatrix(matr, jj * blok_size//2, jj * blok_size//2 + (blok_size - 1),
+                                             matr.shape[0] - h_over + 1, matr.shape[0] - 1)
+            gray_blok_matrix = getLBPMatrix(cyr_blok_matrix, 3)
+            gray_LBP_hist, gray_LBP_bin = getUniFormLBPHist(gray_blok_matrix)
+            for k in range(0, gray_LBP_hist.shape[0]):
+                gray_lbp_list.append(gray_LBP_hist[k])
+    if w_over > 3:
+        cyr_blok_matrix = copyPartMatrix(matr, matr.shape[1] - w_over + 1, matr.shape[1] - 1,
+                                         matr.shape[0] - h_over + 1,
+                                         matr.shape[0] - 1)
+        gray_blok_matrix = getLBPMatrix(cyr_blok_matrix, 3)
+        gray_LBP_hist, gray_LBP_bin = getUniFormLBPHist(gray_blok_matrix)
+        for k in range(0, gray_LBP_hist.shape[0]):
+            gray_lbp_list.append(gray_LBP_hist[k])
+    return gray_lbp_list
+
+#end def getLBPPropsForPieceWithOverlap(matr, blok_size):
+
 def getLBPPropsForPiece(matr, blok_size, tmpName):
     # в зависимости от размера изображения расчитываем количестов итераций и размер вектора свойств для слоя
     end_w_iteration = matr.shape[1] // blok_size
@@ -358,7 +411,8 @@ for cellObj in sheet['A3':'A18']:
               base_Y = sheet.cell(cell.row, 14).value
               image_C=copyPartMatrix(image_C, 10, 138, top_Y, base_Y)
               cv.imwrite("./tmp/"+cell.value[0:len(cell.value)-4]+".jpg", image_C)
-              gray_prop_V, red_prop_V, green_prop_V, blue_prop_V = getLBPPropsForPiece(image_C, blok_size,cell.value[0:len(cell.value)-4])
+              #gray_prop_V, red_prop_V, green_prop_V, blue_prop_V = getLBPPropsForPiece(image_C, blok_size,cell.value[0:len(cell.value)-4])
+              gray_prop_V = getLBPPropsForPieceWithOverlap(image_C, blok_size)
               gray_prop_vect_arr.append(gray_prop_V)
               red_prop_vect_arr.append(red_prop_V)
               green_prop_vect_arr.append(green_prop_V)
