@@ -1,6 +1,8 @@
+from scipy.stats import uniform
 from skimage import feature
 import numpy as np
 import cv2
+import matplotlib.pyplot as plt
 class LocalBinaryPatterns:
 	def __init__(self, numPoints, radius):
 		# store the number of points and radius
@@ -26,21 +28,51 @@ def getCOSSimilarity(v1,v2):
     return result
 #end getCOSSimilarity
 
-img1 = cv2.imread('./tmp/_7piece_metr6_135.jpg')
+img1 = cv2.imread('./tmp/_9piece_metr6.jpg')
 img1 = cv2.cvtColor(img1, cv2.COLOR_BGR2GRAY)
 
-img2 = cv2.imread('./tmp/_9piece_metr6.jpg')
+img2 = cv2.imread('./tmp/_11piece_metr6.jpg')
 img2 = cv2.cvtColor(img2, cv2.COLOR_BGR2GRAY)
-img3 = cv2.imread('./tmp/_11piece_metr6_135.jpg')
+img3 = cv2.imread('./tmp/_12piece_metr6.jpg')
 img3 = cv2.cvtColor(img3, cv2.COLOR_BGR2GRAY)
 
-desc=LocalBinaryPatterns(255,8)
-hist1=desc.describe(img1)
-hist2=desc.describe(img2)
-hist3=desc.describe(img1)
+desc=LocalBinaryPatterns(32,4)
+hist1=desc.describe(img1,100)
+hist2=desc.describe(img2,100)
+hist3=desc.describe(img3,100)
 s1_2=getCOSSimilarity(hist1,hist2)
 s1_3=getCOSSimilarity(hist1,hist3)
-s2_3=getCOSSimilarity(hist2,hist2)
+s2_3=getCOSSimilarity(hist2,hist3)
 
 print(s1_2,s1_3,s2_3)
-print(hist1)
+
+plt.figure(figsize=(10, 5))
+plt.subplot(1, 2, 1)
+plt.title('Original Image')
+plt.imshow(img1, cmap='gray')
+plt.subplot(1, 2, 2)
+plt.title('LBP1')
+lbp1=feature.local_binary_pattern(img1,32,4, method="uniform")
+plt.imshow(lbp1, cmap='gray')
+plt.show()
+
+plt.figure(figsize=(10, 5))
+plt.subplot(1, 2, 1)
+plt.title('Original Image')
+plt.imshow(img2, cmap='gray')
+plt.subplot(1, 2, 2)
+plt.title('LBP1')
+lbp2=feature.local_binary_pattern(img2,32,4, method="uniform")
+plt.imshow(lbp2, cmap='gray')
+plt.show()
+
+plt.figure(figsize=(10, 5))
+plt.subplot(1, 2, 1)
+plt.title('Original Image')
+plt.imshow(img3, cmap='gray')
+plt.subplot(1, 2, 2)
+plt.title('LBP1')
+lbp3=feature.local_binary_pattern(img3,32,4, method="uniform")
+plt.imshow(lbp3, cmap='gray')
+plt.show()
+#print(hist1)
