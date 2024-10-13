@@ -392,7 +392,18 @@ def getMeanDelta(matr):
     return mean_delta
 #end def getMeanDelta(matr):
 
+def distance_between_vectors(A, B):
+    distance = np.sqrt(np.sum((B - A)**2))
+    return distance
+#end distance_between_vectors()
 
+def angle_between_vectors(A, B):
+    dot_product = np.sum(A * B)
+    magnitude_A = np.linalg.norm(A)
+    magnitude_B = np.linalg.norm(B)
+    cos_theta = dot_product / (magnitude_A * magnitude_B)
+    theta = np.arccos(cos_theta)
+    return theta
 
 
 
@@ -405,8 +416,8 @@ green_prop_vect_arr =[]
 blue_prop_vect_arr =[]
 blok_size=32
 
-start_row=51
-end_row=78
+start_row=3
+end_row=18
 for cellObj in sheet['A'+str(start_row):'A'+str(end_row)]:
       for cell in cellObj:
               image_C=cv.imread("C:/Users/user/Documents/GitHub/myRepo2/FotoCore/"+cell.value)
@@ -414,41 +425,21 @@ for cellObj in sheet['A'+str(start_row):'A'+str(end_row)]:
               base_Y = sheet.cell(cell.row, 14).value
               image_C=copyPartMatrix(image_C, 10, 138, top_Y, base_Y)
               cv.imwrite("./tmp/"+cell.value[0:len(cell.value)-4]+".jpg", image_C)
-              #gray_prop_V, red_prop_V, green_prop_V, blue_prop_V = getLBPPropsForPiece(image_C, blok_size,cell.value[0:len(cell.value)-4])
               gray_prop_V = getLBPPropsForPieceWithOverlap(image_C, blok_size)
               gray_prop_vect_arr.append(gray_prop_V)
-              red_prop_vect_arr.append(red_prop_V)
-              green_prop_vect_arr.append(green_prop_V)
-              blue_prop_vect_arr.append(blue_prop_V)
               print('property vectors '+cell.value, gray_prop_V)
-              print('property vectors ' + cell.value, red_prop_V)
-              print('property vectors ' + cell.value, green_prop_V)
-              print('property vectors ' + cell.value, blue_prop_V)
 #-----------------------------------------------------------------------------------
 #добиваем нулями
 for i in range(0, len(gray_prop_vect_arr)-1):
     gray_prop_v1=gray_prop_vect_arr[i]
     gray_prop_v2=gray_prop_vect_arr[i+1]
-    red_prop_v1 = red_prop_vect_arr[i]
-    red_prop_v2 = red_prop_vect_arr[i + 1]
-    green_prop_v1 = green_prop_vect_arr[i]
-    green_prop_v2 = green_prop_vect_arr[i + 1]
-    blue_prop_v1 = blue_prop_vect_arr[i]
-    blue_prop_v2 = blue_prop_vect_arr[i + 1]
     if len(gray_prop_v1)>=len(gray_prop_v2):
         if len(gray_prop_v1)/len(gray_prop_v2)<2:
             tmp_prop_v=np.zeros(len(gray_prop_v1))
             tmp_prop_v[0:len(gray_prop_v2)]=gray_prop_v2[0:len(gray_prop_v2)]
             cos_similarity = getCOSSimilarity(gray_prop_v1, tmp_prop_v)
-            tmp_prop_v = np.zeros(len(red_prop_v1))
-            tmp_prop_v[0:len(red_prop_v2)] = red_prop_v2[0:len(red_prop_v2)]
-            cos_similarity_R = getCOSSimilarity(red_prop_v1, tmp_prop_v)
-            tmp_prop_v = np.zeros(len(green_prop_v1))
-            tmp_prop_v[0:len(green_prop_v2)] = green_prop_v2[0:len(green_prop_v2)]
-            cos_similarity_G = getCOSSimilarity(green_prop_v1, tmp_prop_v)
-            tmp_prop_v = np.zeros(len(blue_prop_v1))
-            tmp_prop_v[0:len(blue_prop_v2)] = blue_prop_v2[0:len(blue_prop_v2)]
-            cos_similarity_B = getCOSSimilarity(blue_prop_v1, tmp_prop_v)
+            dist = distance_between_vectors(gray_prop_v1, tmp_prop_v)
+            angle =  angle_between_vectors(gray_prop_v1, tmp_prop_v)
         else:
             end_h=len(gray_prop_v1)//len(gray_prop_v2)
             cos_similarity=-1
@@ -456,6 +447,8 @@ for i in range(0, len(gray_prop_vect_arr)-1):
                 tmp_prop_v = np.zeros(len(gray_prop_v2))
                 tmp_prop_v[0:len(gray_prop_v2)] = gray_prop_v1[0:len(gray_prop_v2)]
                 tmp_cos_similarity = getCOSSimilarity(gray_prop_v2, tmp_prop_v)
+                dist = distance_between_vectors(gray_prop_v2, tmp_prop_v)
+                angle = angle_between_vectors(gray_prop_v2, tmp_prop_v)
                 if tmp_cos_similarity>cos_similarity:
                     cos_similarity=tmp_cos_similarity
     else:
@@ -463,15 +456,8 @@ for i in range(0, len(gray_prop_vect_arr)-1):
             tmp_prop_v=np.zeros(len(gray_prop_v2))
             tmp_prop_v[0:len(gray_prop_v1)]=gray_prop_v1[0:len(gray_prop_v1)]
             cos_similarity = getCOSSimilarity(gray_prop_v2, tmp_prop_v)
-            tmp_prop_v = np.zeros(len(red_prop_v2))
-            tmp_prop_v[0:len(red_prop_v1)] = red_prop_v1[0:len(red_prop_v1)]
-            cos_similarity_R = getCOSSimilarity(red_prop_v2, tmp_prop_v)
-            tmp_prop_v = np.zeros(len(green_prop_v2))
-            tmp_prop_v[0:len(green_prop_v1)] = green_prop_v1[0:len(green_prop_v1)]
-            cos_similarity_G = getCOSSimilarity(green_prop_v2, tmp_prop_v)
-            tmp_prop_v = np.zeros(len(blue_prop_v2))
-            tmp_prop_v[0:len(blue_prop_v1)] = blue_prop_v1[0:len(blue_prop_v1)]
-            cos_similarity_b = getCOSSimilarity(blue_prop_v2, tmp_prop_v)
+            dist = distance_between_vectors(gray_prop_v2, tmp_prop_v)
+            angle = angle_between_vectors(gray_prop_v2, tmp_prop_v)
         else:
             end_h=len(gray_prop_v2)//len(gray_prop_v1)
             cos_similarity=-1
@@ -479,12 +465,13 @@ for i in range(0, len(gray_prop_vect_arr)-1):
                 tmp_prop_v = np.zeros(len(gray_prop_v1))
                 tmp_prop_v[0:len(gray_prop_v1)] = gray_prop_v2[0:len(gray_prop_v1)]
                 tmp_cos_similarity = getCOSSimilarity(gray_prop_v1, tmp_prop_v)
+                dist = distance_between_vectors(gray_prop_v1, tmp_prop_v)
+                angle = angle_between_vectors(gray_prop_v1, tmp_prop_v)
                 if tmp_cos_similarity>cos_similarity:
                     cos_similarity=tmp_cos_similarity
-
-    print(sheet.cell(i+3,1).value,"-",sheet.cell(i+4,1).value,"                ",round(cos_similarity,5))
-    # if round(cos_similarity,1) < 0.9:
-    #    print(sheet.cell(i+start_row,1).value,"-",sheet.cell(i+start_row+1,1).value,"                ",cos_similarity)
+    print(sheet.cell(i+3,1).value,"-",sheet.cell(i+4,1).value,"   ",round(cos_similarity,5), "  ", dist, "    ", angle )
+    #if round(cos_similarity,1) < 0.9:
+    #print(sheet.cell(i+start_row,1).value,"-",sheet.cell(i+start_row+1,1).value,"                ",cos_similarity)
 '''
 #-----------------------------------------------------------------------------------
 #конец добиваем нулями
