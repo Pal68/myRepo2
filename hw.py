@@ -5,11 +5,10 @@
 import cv2 as cv
 import numpy as np
 import os as os
-from openpyxl import load_workbook as lwb
-from openpyxl.reader.excel import load_workbook
+from openpyxl import load_workbook
 from openpyxl.utils import get_column_letter, column_index_from_string
+import excelFunc
 
-#import excelFunc
 
 
 def print_hi(name):
@@ -28,12 +27,12 @@ def getLBPMatrix(img,chanel):
     else:
         result_matrix = 0.299 * img[:, :, 0] + 0.587 * img[:, :, 1] + 0.114 * img[:, :, 2]
 
-    mean_delta=getMeanDelta(result_matrix)
+    mean_delta = getMeanDelta(result_matrix)
     lbp = np.zeros((result_matrix.shape[0], result_matrix.shape[1]))
-    for i in range(result_matrix.shape[0]):
-       for j in range(result_matrix.shape[1]):
+    for i in range(1,result_matrix.shape[0]-1):
+       for j in range(1,result_matrix.shape[1]-1):
             # Calculate LBP for red channel
-            data=((result_matrix[i, j] - result_matrix[max(0, i-1):min(result_matrix.shape[0], i+2), max(0, j-1):min(result_matrix.shape[1], j+2)]) <= mean_delta*1)
+            data=((result_matrix[i, j] - result_matrix[max(0, i-1):min(result_matrix.shape[0], i+2), max(0, j-1):min(result_matrix.shape[1], j+2)]) <= mean_delta*0)
             c=np.zeros((3,3))
             s = data.size
             match s :
@@ -140,7 +139,6 @@ def getUniFormLBPHist(matr):
             if matr[i, j] not in uniform_lbp:
                 matr[i,j]=255
     lbpHist, bins = np.histogram(a=matr,bins=bins,density=False)
-    #lbpHist=lbpHist*100
     return lbpHist, bins
 #end     getUnoFormLBPHist
 
@@ -247,6 +245,7 @@ def getLBPPropsForPiece(matr, blok_size, tmpName):
     tmpLBPMatrix = np.zeros((int(end_h_iteration*blok_size), int(end_w_iteration*blok_size)))
     for ii in range(0, end_h_iteration):
         for jj in range(0, end_w_iteration):
+
             cyr_blok_matrix = copyPartMatrix(matr, jj * blok_size, jj * blok_size + (blok_size - 1), ii * blok_size,
                                            ii * blok_size + (blok_size - 1))
             gray_blok_matrix = getLBPMatrix(cyr_blok_matrix,3)
@@ -407,45 +406,73 @@ def angle_between_vectors(A, B):
 
 
 
-wb= load_workbook('./Book1.xlsx')
+wb=excelFunc.getExcelWorkBook('./Book1.xlsx')
 sheet = wb.worksheets[0]
 print(type(sheet))
 gray_prop_vect_arr =[]
 red_prop_vect_arr =[]
 green_prop_vect_arr =[]
 blue_prop_vect_arr =[]
-blok_size=32
+blok_size=16
 
 start_row=3
-end_row=18
+end_row=5
 for cellObj in sheet['A'+str(start_row):'A'+str(end_row)]:
       for cell in cellObj:
-              image_C=cv.imread("C:/Users/user/Documents/GitHub/myRepo2/FotoCore/"+cell.value)
+              image_C=cv.imread("C:/Users/Palaguto_va/PycharmProjects/pythonProject1/FotoCore/"+cell.value)
               top_Y=sheet.cell(cell.row,13).value
               base_Y = sheet.cell(cell.row, 14).value
               image_C=copyPartMatrix(image_C, 10, 138, top_Y, base_Y)
               cv.imwrite("./tmp/"+cell.value[0:len(cell.value)-4]+".jpg", image_C)
+              #времмено для визуализации lbp, потом удалить
+              tmp_lbp=getLBPMatrix(image_C,3)
+              cv.imwrite("./tmp/"+cell.value[0:len(cell.value)-4]+"_lbp.jpg",tmp_lbp)
+              # времмено для визуализации lbp, потом удалить
+
+              #gray_prop_V, red_prop_V, green_prop_V, blue_prop_V = getLBPPropsForPiece(image_C, blok_size,cell.value[0:len(cell.value)-4])
               gray_prop_V = getLBPPropsForPieceWithOverlap(image_C, blok_size)
               gray_prop_vect_arr.append(gray_prop_V)
+              # red_prop_vect_arr.append(red_prop_V)
+              # green_prop_vect_arr.append(green_prop_V)
+              # blue_prop_vect_arr.append(blue_prop_V)
               print('property vectors '+cell.value, gray_prop_V)
+              # print('property vectors ' + cell.value, red_prop_V)
+              # print('property vectors ' + cell.value, green_prop_V)
+              # print('property vectors ' + cell.value, blue_prop_V)
 #-----------------------------------------------------------------------------------
 #добиваем нулями
 for i in range(0, len(gray_prop_vect_arr)-1):
     gray_prop_v1=gray_prop_vect_arr[i]
     gray_prop_v2=gray_prop_vect_arr[i+1]
+    # red_prop_v1 = red_prop_vect_arr[i]
+    # red_prop_v2 = red_prop_vect_arr[i + 1]
+    # green_prop_v1 = green_prop_vect_arr[i]
+    # green_prop_v2 = green_prop_vect_arr[i + 1]
+    # blue_prop_v1 = blue_prop_vect_arr[i]
+    # blue_prop_v2 = blue_prop_vect_arr[i + 1]
     if len(gray_prop_v1)>=len(gray_prop_v2):
         if len(gray_prop_v1)/len(gray_prop_v2)<2:
             tmp_prop_v=np.zeros(len(gray_prop_v1))
             tmp_prop_v[0:len(gray_prop_v2)]=gray_prop_v2[0:len(gray_prop_v2)]
             cos_similarity = getCOSSimilarity(gray_prop_v1, tmp_prop_v)
-            dist = distance_between_vectors(gray_prop_v1, tmp_prop_v)
-            angle =  angle_between_vectors(gray_prop_v1, tmp_prop_v)
+            dist=distance_between_vectors(gray_prop_v1, tmp_prop_v)
+            angle=angle_between_vectors(gray_prop_v1, tmp_prop_v)
+            # tmp_prop_v = np.zeros(len(red_prop_v1))
+            # tmp_prop_v[0:len(red_prop_v2)] = red_prop_v2[0:len(red_prop_v2)]
+            # cos_similarity_R = getCOSSimilarity(red_prop_v1, tmp_prop_v)
+            # tmp_prop_v = np.zeros(len(green_prop_v1))
+            # tmp_prop_v[0:len(green_prop_v2)] = green_prop_v2[0:len(green_prop_v2)]
+            # cos_similarity_G = getCOSSimilarity(green_prop_v1, tmp_prop_v)
+            # tmp_prop_v = np.zeros(len(blue_prop_v1))
+            # tmp_prop_v[0:len(blue_prop_v2)] = blue_prop_v2[0:len(blue_prop_v2)]
+            # cos_similarity_B = getCOSSimilarity(blue_prop_v1, tmp_prop_v)
         else:
             end_h=len(gray_prop_v1)//len(gray_prop_v2)
             cos_similarity=-1
             for ii in range(0,1):
                 tmp_prop_v = np.zeros(len(gray_prop_v2))
-                tmp_prop_v[0:len(gray_prop_v2)] = gray_prop_v1[0:len(gray_prop_v2)]
+                #tmp_prop_v[0:len(gray_prop_v2)] = gray_prop_v1[0:len(gray_prop_v2)]
+                tmp_prop_v[0:len(gray_prop_v2)] = gray_prop_v1[len(gray_prop_v1)-len(gray_prop_v2):len(gray_prop_v1)]
                 tmp_cos_similarity = getCOSSimilarity(gray_prop_v2, tmp_prop_v)
                 dist = distance_between_vectors(gray_prop_v2, tmp_prop_v)
                 angle = angle_between_vectors(gray_prop_v2, tmp_prop_v)
@@ -458,6 +485,15 @@ for i in range(0, len(gray_prop_vect_arr)-1):
             cos_similarity = getCOSSimilarity(gray_prop_v2, tmp_prop_v)
             dist = distance_between_vectors(gray_prop_v2, tmp_prop_v)
             angle = angle_between_vectors(gray_prop_v2, tmp_prop_v)
+            # tmp_prop_v = np.zeros(len(red_prop_v2))
+            # tmp_prop_v[0:len(red_prop_v1)] = red_prop_v1[0:len(red_prop_v1)]
+            # cos_similarity_R = getCOSSimilarity(red_prop_v2, tmp_prop_v)
+            # tmp_prop_v = np.zeros(len(green_prop_v2))
+            # tmp_prop_v[0:len(green_prop_v1)] = green_prop_v1[0:len(green_prop_v1)]
+            # cos_similarity_G = getCOSSimilarity(green_prop_v2, tmp_prop_v)
+            # tmp_prop_v = np.zeros(len(blue_prop_v2))
+            # tmp_prop_v[0:len(blue_prop_v1)] = blue_prop_v1[0:len(blue_prop_v1)]
+            # cos_similarity_b = getCOSSimilarity(blue_prop_v2, tmp_prop_v)
         else:
             end_h=len(gray_prop_v2)//len(gray_prop_v1)
             cos_similarity=-1
@@ -469,9 +505,10 @@ for i in range(0, len(gray_prop_vect_arr)-1):
                 angle = angle_between_vectors(gray_prop_v1, tmp_prop_v)
                 if tmp_cos_similarity>cos_similarity:
                     cos_similarity=tmp_cos_similarity
-    print(sheet.cell(i+3,1).value,"-",sheet.cell(i+4,1).value,"   ",round(cos_similarity,5), "  ", dist, "    ", angle )
+
+    print(sheet.cell(i+start_row,1).value,"-",sheet.cell(i+start_row+1,1).value,"   ",cos_similarity, "    ", dist, "    ", angle/(np.pi/180))
     #if round(cos_similarity,1) < 0.9:
-    #print(sheet.cell(i+start_row,1).value,"-",sheet.cell(i+start_row+1,1).value,"                ",cos_similarity)
+    #    print(sheet.cell(i+start_row,1).value,"-",sheet.cell(i+start_row+1,1).value,"   ",cos_similarity, "    ", dist, "    ", angle)
 '''
 #-----------------------------------------------------------------------------------
 #конец добиваем нулями
