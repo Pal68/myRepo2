@@ -1,4 +1,5 @@
 # This is a sample Python script.
+import statistics
 
 # Press Shift+F10 to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
@@ -8,6 +9,8 @@ import os as os
 from openpyxl import load_workbook as lwb
 from openpyxl.reader.excel import load_workbook
 from openpyxl.utils import get_column_letter, column_index_from_string
+import colorsys
+
 
 #import excelFunc
 
@@ -166,11 +169,15 @@ def getLBPPropsForPieceWithOverlap(matr,blok_size):
         h_over = (matr.shape[0]) - end_h_iteration * blok_size
     end_h_iteration = end_h_iteration*2-1
     gray_lbp_list = []
+    hsv_list = []
     #tmpLBPMatrix = np.zeros((int(end_h_iteration * blok_size), int(end_w_iteration * blok_size)))
     for ii in range(0, end_h_iteration):
         for jj in range(0, end_w_iteration):
             cyr_blok_matrix = copyPartMatrix(matr, jj * blok_size//2, jj * blok_size//2 + (blok_size - 1), ii * blok_size//2,
                                              ii * blok_size//2 + (blok_size - 1))
+            hsv_props=get_HSV_props(cyr_blok_matrix)
+            for k in range(0, len(hsv_props)):
+                hsv_list.append(hsv_props[k])
             gray_blok_matrix = getLBPMatrix(cyr_blok_matrix, 3)
             gray_LBP_hist, gray_LBP_bin = getUniFormLBPHist(gray_blok_matrix)
             for k in range(0, gray_LBP_hist.shape[0]):
@@ -178,6 +185,9 @@ def getLBPPropsForPieceWithOverlap(matr,blok_size):
         if w_over > 3:
             cyr_blok_matrix = copyPartMatrix(matr, matr.shape[1] - w_over + 1, matr.shape[1] - 1, ii * blok_size//2,
                                              ii * blok_size//2 + (blok_size - 1))
+            hsv_props = get_HSV_props(cyr_blok_matrix)
+            for k in range(0, len(hsv_props)):
+                hsv_list.append(hsv_props[k])
             gray_blok_matrix = getLBPMatrix(cyr_blok_matrix, 3)
             gray_LBP_hist, gray_LBP_bin = getUniFormLBPHist(gray_blok_matrix)
             for k in range(0, gray_LBP_hist.shape[0]):
@@ -186,6 +196,9 @@ def getLBPPropsForPieceWithOverlap(matr,blok_size):
         for jj in range(0, end_w_iteration):
             cyr_blok_matrix = copyPartMatrix(matr, jj * blok_size//2, jj * blok_size//2 + (blok_size - 1),
                                              matr.shape[0] - h_over + 1, matr.shape[0] - 1)
+            hsv_props = get_HSV_props(cyr_blok_matrix)
+            for k in range(0, len(hsv_props)):
+                hsv_list.append(hsv_props[k])
             gray_blok_matrix = getLBPMatrix(cyr_blok_matrix, 3)
             gray_LBP_hist, gray_LBP_bin = getUniFormLBPHist(gray_blok_matrix)
             for k in range(0, gray_LBP_hist.shape[0]):
@@ -194,11 +207,14 @@ def getLBPPropsForPieceWithOverlap(matr,blok_size):
         cyr_blok_matrix = copyPartMatrix(matr, matr.shape[1] - w_over + 1, matr.shape[1] - 1,
                                          matr.shape[0] - h_over + 1,
                                          matr.shape[0] - 1)
+        hsv_props = get_HSV_props(cyr_blok_matrix)
+        for k in range(0, len(hsv_props)):
+            hsv_list.append(hsv_props[k])
         gray_blok_matrix = getLBPMatrix(cyr_blok_matrix, 3)
         gray_LBP_hist, gray_LBP_bin = getUniFormLBPHist(gray_blok_matrix)
         for k in range(0, gray_LBP_hist.shape[0]):
             gray_lbp_list.append(gray_LBP_hist[k])
-    return gray_lbp_list
+    return gray_lbp_list, hsv_list
 
 #end def getLBPPropsForPieceWithOverlap(matr, blok_size):
 
@@ -405,12 +421,46 @@ def angle_between_vectors(A, B):
     theta = np.arccos(cos_theta)
     return theta
 
+def get_HSV_props(matr):
+    h_comp = []
+    s_comp = []
+    v_comp = []
+    for i in range(matr.shape[0]):
+        for j in range(matr.shape[1]):
+            hsv =colorsys.rgb_to_hsv(matr[i,j,0],matr[i,j,1],matr[i,j,2])
+            h_comp.append(hsv[0])
+            s_comp.append(hsv[1])
+            v_comp.append(hsv[2])
+    h_comp=np.array(h_comp)
+    s_comp = np.array(s_comp)
+    v_comp = np.array(v_comp)
+    HSV_props=[]
+    HSV_props.append(h_comp.mean())
+    HSV_props.append(s_comp.mean())
+    HSV_props.append(v_comp.mean())
+    HSV_props.append(h_comp.std())
+    HSV_props.append(s_comp.std())
+    HSV_props.append(v_comp.std())
+    HSV_props.append(h_comp.var())
+    HSV_props.append(s_comp.var())
+    HSV_props.append(v_comp.var())
+    HSV_props.append(statistics.mode(h_comp))
+    HSV_props.append(statistics.mode(s_comp))
+    HSV_props.append(statistics.mode(v_comp))
+    HSV_props.append(statistics.median(h_comp))
+    HSV_props.append(statistics.median(s_comp))
+    HSV_props.append(statistics.median(v_comp))
+    return HSV_props
+
+
+
 
 
 wb= load_workbook('./Book1.xlsx')
 sheet = wb.worksheets[0]
 print(type(sheet))
 gray_prop_vect_arr =[]
+hsv_prop_vect_arr=[]
 red_prop_vect_arr =[]
 green_prop_vect_arr =[]
 blue_prop_vect_arr =[]
@@ -425,14 +475,17 @@ for cellObj in sheet['A'+str(start_row):'A'+str(end_row)]:
               base_Y = sheet.cell(cell.row, 14).value
               image_C=copyPartMatrix(image_C, 10, 138, top_Y, base_Y)
               cv.imwrite("./tmp/"+cell.value[0:len(cell.value)-4]+".jpg", image_C)
-              gray_prop_V = getLBPPropsForPieceWithOverlap(image_C, blok_size)
+              gray_prop_V, HSV_prop_v = getLBPPropsForPieceWithOverlap(image_C, blok_size)
               gray_prop_vect_arr.append(gray_prop_V)
+              hsv_prop_vect_arr.append(HSV_prop_v)
               print('property vectors '+cell.value, gray_prop_V)
+              print('property vectors '+cell.value, HSV_prop_v)
 #-----------------------------------------------------------------------------------
 #добиваем нулями
 for i in range(0, len(gray_prop_vect_arr)-1):
     gray_prop_v1=gray_prop_vect_arr[i]
     gray_prop_v2=gray_prop_vect_arr[i+1]
+
     if len(gray_prop_v1)>=len(gray_prop_v2):
         if len(gray_prop_v1)/len(gray_prop_v2)<2:
             tmp_prop_v=np.zeros(len(gray_prop_v1))
@@ -469,7 +522,7 @@ for i in range(0, len(gray_prop_vect_arr)-1):
                 angle = angle_between_vectors(gray_prop_v1, tmp_prop_v)
                 if tmp_cos_similarity>cos_similarity:
                     cos_similarity=tmp_cos_similarity
-    print(sheet.cell(i+3,1).value,"-",sheet.cell(i+4,1).value,"   ",round(cos_similarity,5), "  ", dist, "    ", angle )
+    print(sheet.cell(i+3,1).value,"-",sheet.cell(i+4,1).value,"   ",round(cos_similarity,5), "  ", dist, "    ", angle/(np.pi/180) )
     #if round(cos_similarity,1) < 0.9:
     #print(sheet.cell(i+start_row,1).value,"-",sheet.cell(i+start_row+1,1).value,"                ",cos_similarity)
 '''
