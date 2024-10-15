@@ -485,6 +485,10 @@ for cellObj in sheet['A'+str(start_row):'A'+str(end_row)]:
 for i in range(0, len(gray_prop_vect_arr)-1):
     gray_prop_v1=gray_prop_vect_arr[i]
     gray_prop_v2=gray_prop_vect_arr[i+1]
+    set1 = set(gray_prop_v1)
+    set2 = set(gray_prop_v2)
+    jacard_similarity = len(set1 & set2 )/len(set1 | set2)
+
 
     if len(gray_prop_v1)>=len(gray_prop_v2):
         if len(gray_prop_v1)/len(gray_prop_v2)<2:
@@ -522,7 +526,7 @@ for i in range(0, len(gray_prop_vect_arr)-1):
                 angle = angle_between_vectors(gray_prop_v1, tmp_prop_v)
                 if tmp_cos_similarity>cos_similarity:
                     cos_similarity=tmp_cos_similarity
-    print(sheet.cell(i+3,1).value,"-",sheet.cell(i+4,1).value,"   ",round(cos_similarity,5), "  ", dist, "    ", angle/(np.pi/180) )
+    print(sheet.cell(i+3,1).value,"-",sheet.cell(i+4,1).value,"   ",round(cos_similarity,5), "  ", dist, "    ", angle/(np.pi/180), "jacard-  ",(cos_similarity+jacard_similarity)/2 )
     #if round(cos_similarity,1) < 0.9:
     #print(sheet.cell(i+start_row,1).value,"-",sheet.cell(i+start_row+1,1).value,"                ",cos_similarity)
 '''
