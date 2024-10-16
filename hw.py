@@ -482,6 +482,7 @@ for cellObj in sheet['A'+str(start_row):'A'+str(end_row)]:
               print('property vectors '+cell.value, HSV_prop_v)
 #-----------------------------------------------------------------------------------
 #добиваем нулями
+for_cluster=[]
 for i in range(0, len(gray_prop_vect_arr)-1):
     gray_prop_v1=gray_prop_vect_arr[i]
     gray_prop_v2=gray_prop_vect_arr[i+1]
@@ -527,6 +528,7 @@ for i in range(0, len(gray_prop_vect_arr)-1):
                 if tmp_cos_similarity>cos_similarity:
                     cos_similarity=tmp_cos_similarity
     print(sheet.cell(i+3,1).value,"-",sheet.cell(i+4,1).value,"   ",round(cos_similarity,5), "  ", dist, "    ", angle/(np.pi/180), "jacard-  ",(cos_similarity+jacard_similarity)/2 )
+    for_cluster.append([dist,angle])
     #if round(cos_similarity,1) < 0.9:
     #print(sheet.cell(i+start_row,1).value,"-",sheet.cell(i+start_row+1,1).value,"                ",cos_similarity)
 '''
