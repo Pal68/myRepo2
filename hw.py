@@ -483,6 +483,7 @@ for cellObj in sheet['A'+str(start_row):'A'+str(end_row)]:
 #-----------------------------------------------------------------------------------
 #добиваем нулями
 for_cluster=[]
+cos_similarity_arr = []
 for i in range(0, len(gray_prop_vect_arr)-1):
     gray_prop_v1=gray_prop_vect_arr[i]
     gray_prop_v2=gray_prop_vect_arr[i+1]
@@ -529,8 +530,35 @@ for i in range(0, len(gray_prop_vect_arr)-1):
                     cos_similarity=tmp_cos_similarity
     print(sheet.cell(i+3,1).value,"-",sheet.cell(i+4,1).value,"   ",round(cos_similarity,5), "  ", dist, "    ", angle/(np.pi/180), "jacard-  ",(cos_similarity+jacard_similarity)/2 )
     for_cluster.append([dist,angle])
+    cos_similarity_arr.append([sheet.cell(i+start_row,1).value + "-" +sheet.cell(i+start_row+1,1).value, cos_similarity])
     #if round(cos_similarity,1) < 0.9:
     #print(sheet.cell(i+start_row,1).value,"-",sheet.cell(i+start_row+1,1).value,"                ",cos_similarity)
+
+X=np.array(for_cluster)
+y_preds=clusterKraftTest.run_Kmeans(2,X)
+for i in range(0,len(y_preds)):
+    if round(cos_similarity_arr[i][1],2) < 0.95:
+        cos_similarity_arr[i][1]=cos_similarity_arr[i][1]*y_preds[i]
+
+for cos_similarity_item in  cos_similarity_arr:
+    if round(cos_similarity_item[1],2) < 0.95 :
+        print(cos_similarity_item[0],"   ",cos_similarity_item[1])
+
+for i in range(0, len(y_preds)):
+    print(str(X[i])+" - "+ str(y_preds[i]))
+
+#---------------------------------------------------------
+#создаем спмсок масиввов для кластеризации
+X_for_cluster = []
+for i in range(0, len(gray_prop_vect_arr)):
+    if len(gray_prop_vect_arr[i])<max_length:
+        tmp_prop_v=np.zeros(max_length)
+        tmp_prop_v[0:len(gray_prop_vect_arr[i])]=gray_prop_vect_arr[i]
+        X_for_cluster.append(tmp_prop_v)
+    else:
+        X_for_cluster.append(gray_prop_vect_arr[i])
+
+
 '''
 #-----------------------------------------------------------------------------------
 #конец добиваем нулями
