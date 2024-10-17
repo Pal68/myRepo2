@@ -452,6 +452,36 @@ def get_HSV_props(matr):
     HSV_props.append(statistics.median(v_comp))
     return HSV_props
 
+def get_RGB_props(matr):
+    r_comp = []
+    g_comp = []
+    b_comp = []
+    for i in range(matr.shape[0]):
+        for j in range(matr.shape[1]):
+            rgb =(matr[i,j,0],matr[i,j,1],matr[i,j,2])
+            r_comp.append(rgb[0])
+            g_comp.append(rgb[1])
+            b_comp.append(rgb[2])
+    r_comp=np.array(r_comp)
+    g_comp = np.array(g_comp)
+    b_comp = np.array(b_comp)
+    RGB_props=[]
+    RGB_props.append(r_comp.mean())
+    RGB_props.append(g_comp.mean())
+    RGB_props.append(b_comp.mean())
+    # HSV_props.append(h_comp.std())
+    # HSV_props.append(s_comp.std())
+    # HSV_props.append(v_comp.std())
+    # HSV_props.append(h_comp.var())
+    # HSV_props.append(s_comp.var())
+    # HSV_props.append(v_comp.var())
+    # HSV_props.append(statistics.mode(h_comp))
+    # HSV_props.append(statistics.mode(s_comp))
+    # HSV_props.append(statistics.mode(v_comp))
+    # HSV_props.append(statistics.median(h_comp))
+    # HSV_props.append(statistics.median(s_comp))
+    # HSV_props.append(statistics.median(v_comp))
+    return RGB_props
 
 
 
