@@ -197,6 +197,9 @@ def getLBPPropsForPieceWithOverlap(matr,blok_size, tmp_name):
             gray_LBP_hist, gray_LBP_bin = getUniFormLBPHist(gray_blok_matrix)
             for k in range(0, gray_LBP_hist.shape[0]):
                 gray_lbp_list.append(gray_LBP_hist[k])
+            for k in range(0, len(rgb_props)):
+                gray_lbp_list.append(rgb_props[k])
+
         if w_over > 3:
             cyr_blok_matrix = copyPartMatrix(matr, matr.shape[1] - w_over + 1, matr.shape[1] - 1, ii * blok_size//2,
                                              ii * blok_size//2 + (blok_size - 1))
@@ -220,6 +223,8 @@ def getLBPPropsForPieceWithOverlap(matr,blok_size, tmp_name):
             gray_LBP_hist, gray_LBP_bin = getUniFormLBPHist(gray_blok_matrix)
             for k in range(0, gray_LBP_hist.shape[0]):
                 gray_lbp_list.append(gray_LBP_hist[k])
+            for k in range(0, len(rgb_props)):
+                gray_lbp_list.append(rgb_props[k])
     if h_over > 3:
         for jj in range(0, end_w_iteration):
             cyr_blok_matrix = copyPartMatrix(matr, jj * blok_size//2, jj * blok_size//2 + (blok_size - 1),
@@ -245,6 +250,8 @@ def getLBPPropsForPieceWithOverlap(matr,blok_size, tmp_name):
             gray_LBP_hist, gray_LBP_bin = getUniFormLBPHist(gray_blok_matrix)
             for k in range(0, gray_LBP_hist.shape[0]):
                 gray_lbp_list.append(gray_LBP_hist[k])
+            for k in range(0, len(rgb_props)):
+                gray_lbp_list.append(rgb_props[k])
     if w_over > 3:
         cyr_blok_matrix = copyPartMatrix(matr, matr.shape[1] - w_over + 1, matr.shape[1] - 1,
                                          matr.shape[0] - h_over + 1,
@@ -269,6 +276,8 @@ def getLBPPropsForPieceWithOverlap(matr,blok_size, tmp_name):
         gray_LBP_hist, gray_LBP_bin = getUniFormLBPHist(gray_blok_matrix)
         for k in range(0, gray_LBP_hist.shape[0]):
             gray_lbp_list.append(gray_LBP_hist[k])
+        for k in range(0, len(rgb_props)):
+            gray_lbp_list.append(rgb_props[k])
     cv.imwrite("./tmp/" + tmp_name + "_HSV.jpg", tmpHSVMatrix)
     return gray_lbp_list, hsv_list, rgb_list
 
@@ -540,6 +549,51 @@ def get_RGB_props(matr):
     # HSV_props.append(statistics.median(v_comp))
     return RGB_props
 
+def get_height_adjustment_vector(arr1, arr2, type_adjustment=1):
+    match type_adjustment:
+        case 1: #добиваем нулями
+            if len(arr1) > len(arr2):
+                tmp_prop_v = np.zeros(len(arr1))
+                tmp_prop_v[0:len(arr2)] = arr2[0:len(arr2)]
+                return arr1, tmp_prop_v
+            else:
+                tmp_prop_v = np.zeros(len(arr2))
+                tmp_prop_v[0:len(arr1)] = arr1[0:len(arr1)]
+                return arr2, tmp_prop_v
+        case 2: #обрезаем верхний
+            if len(arr1) > len(arr2):
+                tmp_prop_v = np.zeros(len(arr2))
+                tmp_prop_v[0:len(arr2)] = arr1[len(arr1) - len(arr2):len(arr1)]
+                return arr2, tmp_prop_v
+            else: #обрезаем нижний
+                tmp_prop_v = np.zeros(len(arr1))
+                tmp_prop_v[0:len(arr1)] = arr2[len(arr2) - len(arr1):len(arr2)]
+                return arr1, tmp_prop_v
+        case 3: #повторяем n раз меньший
+            if len(arr1) > len(arr2):
+                k = len(arr1) // len(arr2)
+                remains = (len(arr1) / len(arr2))-k
+                tmp_prop_v = np.zeros(len(arr2)*k+remains)
+                for i in range(k):
+                    tmp_prop_v[i * len(arr2):i * len(arr2)+len(arr2)]=arr2[0:len(arr2)]
+                if remains > 0:
+                    k=int(round(len(arr1)*remains))
+                    tmp_prop_v[len(arr1)-k:len(arr1)] = arr2[0:len(arr2)]
+                return arr1, tmp_prop_v
+            else:
+                k = len(arr2) // len(arr1)
+                remains = (len(arr2) / len(arr1)) - k
+                tmp_prop_v = np.zeros(len(arr1) * k + remains)
+                for i in range(k):
+                    tmp_prop_v[i * len(arr1):i * len(arr1)+len(arr1)]=arr1[0:len(arr1)]
+                if remains > 0:
+                    k=int(round(len(arr2)*remains))
+                    tmp_prop_v[len(arr2)-k:len(arr2)] = arr1[0:len(arr1)]
+                return arr2, tmp_prop_v
+
+
+
+
 
 
 wb=excelFunc.getExcelWorkBook('./Book1.xlsx')
@@ -552,10 +606,10 @@ red_prop_vect_arr =[]
 green_prop_vect_arr =[]
 blue_prop_vect_arr =[]
 #--------------------------------------------------------------
-blok_size=8
+blok_size=64
 start_row=3
-end_row=47
-h_tresold = 2
+end_row=107
+h_tresold = 0.5
 #-----------------------------------------------------------------
 
 
@@ -601,93 +655,44 @@ for i in range(0, len(gray_prop_vect_arr)-1):
     set2 = set(gray_prop_v2)
     jacard_similarity = len(set1 & set2) / len(set1 | set2)
 
-    if len(gray_prop_v1)>=len(gray_prop_v2):
-        if len(gray_prop_v1)/len(gray_prop_v2) < h_tresold:
-            tmp_prop_v=np.zeros(len(gray_prop_v1))
-            tmp_prop_v[0:len(gray_prop_v2)]=gray_prop_v2[0:len(gray_prop_v2)]
-            cos_similarity = getCOSSimilarity(gray_prop_v1, tmp_prop_v)
-            dist=distance_between_vectors(gray_prop_v1, tmp_prop_v)
-            angle=angle_between_vectors(gray_prop_v1, tmp_prop_v)
 
-            tmp_prop_v = np.zeros(len(HSV_prop_v1))
-            tmp_prop_v[0:len(HSV_prop_v2)] = HSV_prop_v2[0:len(HSV_prop_v2)]
-            HSV_cos_similarity = getCOSSimilarity(HSV_prop_v1, tmp_prop_v)
-            HSV_dist = distance_between_vectors(HSV_prop_v1, tmp_prop_v)
-            HSV_angle = angle_between_vectors(HSV_prop_v1, tmp_prop_v)
+    if len(gray_prop_v1) != len(gray_prop_v2) and abs(len(gray_prop_v1)-len(gray_prop_v2))/max(len(gray_prop_v1),len(gray_prop_v2)) > h_tresold :
+        arr1, arr2 = get_height_adjustment_vector(gray_prop_v1,gray_prop_v2,1)
+        cos_similarity = getCOSSimilarity(arr1, arr2)
+        dist=distance_between_vectors(arr1, arr2)
+        angle=angle_between_vectors(arr1, arr2)
 
-            RGB_prop_v = np.zeros(len(RGB_prop_v1))
-            tmp_prop_v[0:len(RGB_prop_v2)] = RGB_prop_v2[0:len(RGB_prop_v2)]
-            RGB_cos_similarity = getCOSSimilarity(RGB_prop_v1, tmp_prop_v)
-            RGB_dist = distance_between_vectors(RGB_prop_v1, tmp_prop_v)
-            RGB_angle = angle_between_vectors(RGB_prop_v1, tmp_prop_v)
+        arr1, arr2 = get_height_adjustment_vector(HSV_prop_v1,HSV_prop_v2,1)
+        HSV_cos_similarity = getCOSSimilarity(arr1, arr2)
+        HSV_dist = distance_between_vectors(arr1, arr2)
+        HSV_angle = angle_between_vectors(arr1, arr2)
 
-
-        else:
-            tmp_prop_v = np.zeros(len(gray_prop_v2))
-            tmp_prop_v[0:len(gray_prop_v2)] = gray_prop_v1[len(gray_prop_v1)-len(gray_prop_v2):len(gray_prop_v1)]
-            cos_similarity = getCOSSimilarity(gray_prop_v2, tmp_prop_v)
-            dist = distance_between_vectors(gray_prop_v2, tmp_prop_v)
-            angle = angle_between_vectors(gray_prop_v2, tmp_prop_v)
-
-            tmp_prop_v = np.zeros(len(HSV_prop_v2))
-            tmp_prop_v[0:len(HSV_prop_v2)] = HSV_prop_v1[len(HSV_prop_v1) - len(HSV_prop_v2):len(HSV_prop_v1)]
-            HSV_cos_similarity = getCOSSimilarity(HSV_prop_v2, tmp_prop_v)
-            HSV_dist = distance_between_vectors(HSV_prop_v2, tmp_prop_v)
-            HSV_angle = angle_between_vectors(HSV_prop_v2, tmp_prop_v)
-
-            tmp_prop_v = np.zeros(len(RGB_prop_v2))
-            tmp_prop_v[0:len(RGB_prop_v2)] = RGB_prop_v1[len(RGB_prop_v1) - len(RGB_prop_v2):len(RGB_prop_v1)]
-            RGB_cos_similarity = getCOSSimilarity(RGB_prop_v2, tmp_prop_v)
-            RGB_dist = distance_between_vectors(RGB_prop_v2, tmp_prop_v)
-            RGB_angle = angle_between_vectors(RGB_prop_v2, tmp_prop_v)
-
+        arr1, arr2 = get_height_adjustment_vector(RGB_prop_v1,RGB_prop_v2,1)
+        RGB_cos_similarity = getCOSSimilarity(arr1, arr2)
+        RGB_dist = distance_between_vectors(arr1, arr2)
+        RGB_angle = angle_between_vectors(arr1, arr2)
     else:
-        if len(gray_prop_v2) / len(gray_prop_v1) < h_tresold:
-            tmp_prop_v=np.zeros(len(gray_prop_v2))
-            tmp_prop_v[0:len(gray_prop_v1)]=gray_prop_v1[0:len(gray_prop_v1)]
-            cos_similarity = getCOSSimilarity(gray_prop_v2, tmp_prop_v)
-            dist = distance_between_vectors(gray_prop_v2, tmp_prop_v)
-            angle = angle_between_vectors(gray_prop_v2, tmp_prop_v)
+        arr1, arr2 = get_height_adjustment_vector(gray_prop_v1,gray_prop_v2,2)
+        cos_similarity = getCOSSimilarity(arr1, arr2)
+        dist=distance_between_vectors(arr1, arr2)
+        angle=angle_between_vectors(arr1, arr2)
 
-            tmp_prop_v = np.zeros(len(HSV_prop_v2))
-            tmp_prop_v[0:len(HSV_prop_v1)] = HSV_prop_v1[0:len(HSV_prop_v1)]
-            HSV_cos_similarity = getCOSSimilarity(HSV_prop_v2, tmp_prop_v)
-            HSV_dist = distance_between_vectors(HSV_prop_v2, tmp_prop_v)
-            HSV_angle = angle_between_vectors(HSV_prop_v2, tmp_prop_v)
+        arr1, arr2 = get_height_adjustment_vector(HSV_prop_v1,HSV_prop_v2,2)
+        HSV_cos_similarity = getCOSSimilarity(arr1, arr2)
+        HSV_dist = distance_between_vectors(arr1, arr2)
+        HSV_angle = angle_between_vectors(arr1, arr2)
 
-            tmp_prop_v = np.zeros(len(RGB_prop_v2))
-            tmp_prop_v[0:len(RGB_prop_v1)] = RGB_prop_v1[0:len(RGB_prop_v1)]
-            RGB_cos_similarity = getCOSSimilarity(RGB_prop_v2, tmp_prop_v)
-            RGB_dist = distance_between_vectors(RGB_prop_v2, tmp_prop_v)
-            RGB_angle = angle_between_vectors(RGB_prop_v2, tmp_prop_v)
-        else:
-            tmp_prop_v = np.zeros(len(gray_prop_v1))
-            tmp_prop_v[0:len(gray_prop_v1)] = gray_prop_v2[0:len(gray_prop_v1)]
-            cos_similarity = getCOSSimilarity(gray_prop_v1, tmp_prop_v)
-            dist = distance_between_vectors(gray_prop_v1, tmp_prop_v)
-            angle = angle_between_vectors(gray_prop_v1, tmp_prop_v)
+        arr1, arr2 = get_height_adjustment_vector(RGB_prop_v1,RGB_prop_v2,2)
+        RGB_cos_similarity = getCOSSimilarity(arr1, arr2)
+        RGB_dist = distance_between_vectors(arr1, arr2)
+        RGB_angle = angle_between_vectors(arr1, arr2)
 
-            tmp_prop_v = np.zeros(len(HSV_prop_v1))
-            tmp_prop_v[0:len(HSV_prop_v1)] = HSV_prop_v2[0:len(HSV_prop_v1)]
-            HSV_cos_similarity = getCOSSimilarity(HSV_prop_v1, tmp_prop_v)
-            HSV_dist = distance_between_vectors(HSV_prop_v1, tmp_prop_v)
-            HSV_angle = angle_between_vectors(HSV_prop_v1, tmp_prop_v)
-
-            tmp_prop_v = np.zeros(len(RGB_prop_v1))
-            tmp_prop_v[0:len(RGB_prop_v1)] = RGB_prop_v2[0:len(RGB_prop_v1)]
-            RGB_cos_similarity = getCOSSimilarity(RGB_prop_v1, tmp_prop_v)
-            RGB_dist = distance_between_vectors(RGB_prop_v1, tmp_prop_v)
-            RGB_angle = angle_between_vectors(RGB_prop_v1, tmp_prop_v)
-
-
-
-
-    #print(sheet.cell(i+start_row,1).value,"-",sheet.cell(i+start_row+1,1).value,"   ",cos_similarity, "    ", dist, "    ", angle/(np.pi/180), "HSV Cos    ", HSV_cos_similarity, "RGB Cos     ", RGB_cos_similarity)
+    print(sheet.cell(i+start_row,1).value,"-",sheet.cell(i+start_row+1,1).value,"   ",round(cos_similarity,2), "    ", dist, "    ", angle/(np.pi/180), "HSV Cos    ", HSV_cos_similarity, "RGB Cos     ", RGB_cos_similarity)
     for_cluster.append([jacard_similarity])
     cos_similarity_arr.append([sheet.cell(i+start_row,1).value + "-" +sheet.cell(i+start_row+1,1).value, cos_similarity])
 
-    if round(cos_similarity,2) < 0.95 :
-        print(sheet.cell(i+start_row,1).value,"-",sheet.cell(i+start_row+1,1).value,"   ",cos_similarity, "   JACARD_SIM ", jacard_similarity,  "       ",      angle/(np.pi/180))
+    # if round(cos_similarity,2) < 0.95 :
+    #     print(sheet.cell(i+start_row,1).value,"-",sheet.cell(i+start_row+1,1).value,"   ",cos_similarity, "   JACARD_SIM ", jacard_similarity,  "       ",      angle/(np.pi/180))
 
 X=np.array(for_cluster)
 y_preds=clusterKraftTest.run_Kmeans(2,X)
