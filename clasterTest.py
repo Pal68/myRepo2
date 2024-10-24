@@ -6,8 +6,8 @@ import sklearn
 from sklearn.cluster import DBSCAN
 from sklearn.datasets import make_moons
 import warnings
+import kakNaRabote
 
-import hw
 
 warnings.filterwarnings("ignore")
 plt.style.use("ggplot")
@@ -20,10 +20,10 @@ plt.style.use("ggplot")
 
 # Генерация данных (например, полукруги)
 #X, _ = make_moons(n_samples=300, noise=0.1, random_state=42)
-X=np.array(hw.for_cluster)
+X=kakNaRabote.X
 
 # Настройка параметров DBSCAN
-dbscan = DBSCAN(eps=0.2, min_samples=1)
+dbscan = DBSCAN(eps=5, min_samples=1)
 
 # Применение DBSCAN к данным
 clusters = dbscan.fit_predict(X)
@@ -35,3 +35,4 @@ plt.title('DBSCAN Clustering')
 plt.xlabel('Feature 1')
 plt.ylabel('Feature 2')
 plt.show()
+print(clusters)

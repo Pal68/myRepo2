@@ -9,6 +9,8 @@ def initialize_random_centroids(K,X):
     for i in range(K):
         # pick a random data point from X as the centroid
         centroids[i] = X[np.random.choice(range(m))]
+    centroids[0] = [np.max(X[:,0]), np.max(X[:,1]), np.max(X[:,2]), np.max(X[:,3]), np.max(X[:,4]) ]
+    centroids[1] = [np.min(X[:, 0]), np.min(X[:, 1]), np.min(X[:, 2]), np.min(X[:, 3]), np.min(X[:, 4])]
     return centroids
 
 def euclidean_distance(x1, x2):

@@ -11,6 +11,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 #Below libraries of sklearn are just to VERIFY performance.
+import sklearn
 #from sklearn.cluster import DBSCAN
 #from sklearn.datasets.samples_generator import make_blobs
 
@@ -19,7 +20,7 @@ import matplotlib.pyplot as plt
 # In[21]:
 
 #Find neighbor points within the circle of given radius and return them
-import main
+import kakNaRabote
 
 
 def range_query(data_point, epsilon, data):
@@ -62,9 +63,9 @@ centers = [[1, 1], [-1, -1], [1, -1]]
 # X, labels_true = make_blobs(n_samples=750, centers=centers, cluster_std=0.4,  random_state=0)
 # X = StandardScaler().fit_transform(X)
 
-X = np.array(main.X_for_cluster)
+X = np.array(kakNaRabote.X_for_cluster)
 
-own_labels = own_dbscan(X,5, 3)
+own_labels = own_dbscan(X,1.5, 1)
 
 # In[24]:
 
@@ -73,7 +74,11 @@ own_labels = own_dbscan(X,5, 3)
 
 # In[25]:
 
-#plt.scatter(X[:,0], X[:,1]) #Our original data - unclustered
+plt.scatter(X[:,0], X[:,1]) #Our original data - unclustered
+plt.title('DBSCAN Clustering')
+plt.xlabel('Feature 1')
+plt.ylabel('Feature 2')
+plt.show()
 
 
 # ## Let's perform our own DBSCAN
@@ -87,6 +92,10 @@ own_labels = own_dbscan(X,5, 3)
 
 #Let's visualize it
 plt.scatter(X[:,0], X[:,1], marker='o', s=14, c=own_labels, cmap='rainbow')
+plt.title('DBSCAN Clustering')
+plt.xlabel('Feature 1')
+plt.ylabel('Feature 2')
+plt.show()
 print(own_labels)
 
 
@@ -106,7 +115,7 @@ print(own_labels)
 
 # In[30]:
 
-#plt.scatter(X[:,0], X[:,1], marker='o', s=14, c=sklearn_labels, cmap='rainbow')
+plt.scatter(X[:,0], X[:,1], marker='o', s=14, c=own_labels, cmap='rainbow')
 
 
 # In[31]:

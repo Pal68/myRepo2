@@ -39,7 +39,7 @@ def getLBPMatrix(img,chanel):
     for i in range(1,result_matrix.shape[0]-1):
        for j in range(1,result_matrix.shape[1]-1):
             # Calculate LBP for red channel
-            data=((result_matrix[i, j] - result_matrix[max(0, i-1):min(result_matrix.shape[0], i+2), max(0, j-1):min(result_matrix.shape[1], j+2)]) <= mean_delta*0)
+            data=((result_matrix[i, j] - result_matrix[max(0, i-1):min(result_matrix.shape[0], i+2), max(0, j-1):min(result_matrix.shape[1], j+2)]) <= mean_delta*1)
             c=np.zeros((3,3))
             s = data.size
             match s :
@@ -145,7 +145,7 @@ def getUniFormLBPHist(matr):
         for j in range(0,matr.shape[1]):
             if matr[i, j] not in uniform_lbp:
                 matr[i,j]=255
-    lbpHist, bins = np.histogram(a=matr,bins=bins,density=True)
+    lbpHist, bins = np.histogram(a=matr,bins=bins,density = True)
     return lbpHist, bins
 #end     getUnoFormLBPHist
 
@@ -606,16 +606,16 @@ red_prop_vect_arr =[]
 green_prop_vect_arr =[]
 blue_prop_vect_arr =[]
 #--------------------------------------------------------------
-blok_size=32
+blok_size=8
 start_row=3
-end_row=18
-h_tresold = 0.9
+end_row=5
+h_tresold = 0.75
 #-----------------------------------------------------------------
 
 
 
 for exl_row in range (start_row,end_row+1):
-            image_C=cv.imread("C:/Users/Palaguto_va/PycharmProjects/pythonProject1/FotoCore/"+sheet.cell(exl_row,1).value)
+            image_C=cv.imread("./FotoCore/"+sheet.cell(exl_row,1).value)
             top_Y=sheet.cell(exl_row,13).value
             base_Y = sheet.cell(exl_row, 14).value
             image_C=copyPartMatrix(image_C, 10, 138, top_Y, base_Y)
@@ -654,6 +654,13 @@ for i in range(0, len(gray_prop_vect_arr)-1):
     set1 = set(gray_prop_v1)
     set2 = set(gray_prop_v2)
     jacard_similarity = len(set1 & set2) / len(set1 | set2)
+    r1 = np.mean(np.array(np.array(RGB_prop_v1).reshape(-1, 3))[:, 0])
+    r2 = np.mean(np.array(np.array(RGB_prop_v2).reshape(-1, 3))[:, 0])
+    g1 = np.mean(np.array(np.array(RGB_prop_v1).reshape(-1, 3))[:, 1])
+    g2 = np.mean(np.array(np.array(RGB_prop_v2).reshape(-1, 3))[:, 1])
+    b1 = np.mean(np.array(np.array(RGB_prop_v1).reshape(-1, 3))[:, 2])
+    b2 = np.mean(np.array(np.array(RGB_prop_v2).reshape(-1, 3))[:, 2])
+    dist_rgb=distance_between_vectors(np.array([r1, g1, b1]), np.array([r2, g2, b2]))/distance_between_vectors(np.array([0, 0, 0]), np.array([255, 255, 255]))
 
 
     if (len(gray_prop_v1) != len(gray_prop_v2)
@@ -662,6 +669,9 @@ for i in range(0, len(gray_prop_vect_arr)-1):
         cos_similarity = getCOSSimilarity(arr1, arr2)
         dist=distance_between_vectors(arr1, arr2)
         angle=angle_between_vectors(arr1, arr2)
+        set1 = set(arr1)
+        set2 = set(arr2)
+        jacard_similarity = len(set1 & set2) / len(set1 | set2)
 
         arr1, arr2 = get_height_adjustment_vector(HSV_prop_v1,HSV_prop_v2,2)
         HSV_cos_similarity = getCOSSimilarity(arr1, arr2)
@@ -677,6 +687,9 @@ for i in range(0, len(gray_prop_vect_arr)-1):
         cos_similarity = getCOSSimilarity(arr1, arr2)
         dist=distance_between_vectors(arr1, arr2)
         angle=angle_between_vectors(arr1, arr2)
+        set1 = set(arr1)
+        set2 = set(arr2)
+        jacard_similarity = len(set1 & set2) / len(set1 | set2)
 
 
         arr1, arr2 = get_height_adjustment_vector(HSV_prop_v1,HSV_prop_v2,1)
@@ -689,25 +702,21 @@ for i in range(0, len(gray_prop_vect_arr)-1):
         RGB_dist = distance_between_vectors(arr1, arr2)
         RGB_angle = angle_between_vectors(arr1, arr2)
 
-    print(sheet.cell(i+start_row,1).value,"-",sheet.cell(i+start_row+1,1).value,"   ",round(cos_similarity,2), "    ", "   JACARD_SIM ", round(jacard_similarity,2))
-    for_cluster.append([jacard_similarity])
+    # print(sheet.cell(i+start_row,1).value,"-",sheet.cell(i+start_row+1,1).value,"   ",round(cos_similarity,2), "    ", "   JACARD_SIM ", round(jacard_similarity,2), "   ", dist_rgb)
+    for_cluster.append([cos_similarity, jacard_similarity, dist_rgb,dist,angle])
     cos_similarity_arr.append([sheet.cell(i+start_row,1).value + "-" +sheet.cell(i+start_row+1,1).value, cos_similarity])
 
-    # if round(cos_similarity,2) < 0.95 :
-    #      print(sheet.cell(i+start_row,1).value,"-",sheet.cell(i+start_row+1,1).value,"   ",cos_similarity, "   JACARD_SIM ", jacard_similarity,  "       ",      angle/(np.pi/180))
+    if round(cos_similarity,3) < 0.985 :
+         print(sheet.cell(i+start_row,1).value,"-",sheet.cell(i+start_row+1,1).value,"   ",cos_similarity, "   JACARD_SIM ", jacard_similarity,  "       ",      angle/(np.pi/180))
 
 X=np.array(for_cluster)
 y_preds=clusterKraftTest.run_Kmeans(2,X)
-for i in range(0,len(y_preds)):
-    if round(cos_similarity_arr[i][1],2) < 0.95:
-        cos_similarity_arr[i][1]=cos_similarity_arr[i][1]*y_preds[i]
 
-for cos_similarity_item in  cos_similarity_arr:
-    if round(cos_similarity_item[1],2) < 0.95 :
-        print(cos_similarity_item[0],"   ",cos_similarity_item[1])
+
 
 for i in range(0, len(y_preds)):
-    print(str(X[i])+" - "+ str(y_preds[i]))
+    if y_preds[i] == 0:
+        print(cos_similarity_arr[i][0]+" - "+  "    " +str(cos_similarity_arr[i][1]) +"   " + str(round(y_preds[i],0)))
 
 #---------------------------------------------------------
 #создаем спмсок масиввов для кластеризации
