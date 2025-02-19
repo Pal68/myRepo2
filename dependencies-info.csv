@@ -1,0 +1,255 @@
+Level,Package,Installed Version,Installed Version Date,Latest Version,Latest Version Date,Description,License
+Level 0,@ant-design/icons,^5.6.1,Неизвестно,5.6.1,2025-02-07T09:13:36.334Z,"[![NPM version](https://img.shields.io/npm/v/@ant-design/icons.svg?style=flat)](https://npmjs.org/package/@ant-design/icons) [![NPM downloads](http://img.shields.io/npm/dm/@ant-design/icons.svg?style=flat)](https://npmjs.org/package/@ant-design/icons)",MIT
+Level 1,@ant-design/colors,Не установлено,Неизвестно,7.2.0,2024-12-31T15:03:29.773Z,"Color palettes calculator of Ant Design",MIT
+Level 2,@ant-design/fast-color,Не установлено,Неизвестно,2.0.6,2024-08-06T14:02:23.806Z,"fast and small color class",MIT
+Level 1,@ant-design/icons-svg,Не установлено,Неизвестно,4.4.2,2024-02-01T06:43:00.450Z,"Abstract nodes for ant design icons.",MIT
+Level 1,@babel/runtime,Не установлено,Неизвестно,7.26.9,2025-02-14T11:47:59.905Z,"babel's modular runtime helpers",MIT
+Level 2,regenerator-runtime,Не установлено,Неизвестно,0.14.1,2023-12-15T20:52:02.938Z,"Runtime for Regenerator-compiled generator and async functions.",MIT
+Level 1,classnames,Не установлено,Неизвестно,2.5.1,2023-12-29T15:55:16.013Z,"A simple utility for conditionally joining classNames together",MIT
+Level 1,rc-util,Не установлено,Неизвестно,5.44.4,2025-02-08T07:29:39.695Z,"Common Utils For React Component",MIT
+Level 2,@babel/runtime,Не установлено,Неизвестно,7.26.9,2025-02-14T11:47:59.905Z,"babel's modular runtime helpers",MIT
+Level 2,react-is,Не установлено,Неизвестно,19.0.0,2024-12-05T18:10:41.382Z,"Brand checking of React Elements.",MIT
+Level 0,@reduxjs/toolkit,^2.5.1,Неизвестно,2.5.1,2025-01-26T19:33:36.666Z,"The official, opinionated, batteries-included toolset for efficient Redux development",MIT
+Level 1,immer,Не установлено,Неизвестно,10.1.1,2024-04-27T20:07:26.218Z,"Create your next immutable state by mutating the current one",MIT
+Level 1,redux,Не установлено,Неизвестно,5.0.1,2023-12-23T16:47:28.099Z,"Predictable state container for JavaScript apps",MIT
+Level 1,redux-thunk,Не установлено,Неизвестно,3.1.0,2023-12-04T13:50:37.326Z,"Thunk middleware for Redux.",MIT
+Level 1,reselect,Не установлено,Неизвестно,5.1.1,2024-06-01T22:16:06.224Z,"Selectors for Redux.",MIT
+Level 0,antd,^5.24.0,Неизвестно,5.24.1,2025-02-17T09:46:46.422Z,"An enterprise-class UI design language and React components implementation",MIT
+Level 1,dayjs,Не установлено,Неизвестно,1.11.13,2024-08-20T14:59:52.917Z,"2KB immutable date time library alternative to Moment.js with the same modern API ",MIT
+Level 1,rc-menu,Не установлено,Неизвестно,9.16.1,2025-02-18T02:48:17.857Z,"menu ui component for react",MIT
+Level 2,@babel/runtime,Не установлено,Неизвестно,7.26.9,2025-02-14T11:47:59.905Z,"babel's modular runtime helpers",MIT
+Level 2,@rc-component/trigger,Не установлено,Неизвестно,3.0.0,2025-02-18T08:39:04.880Z,"base abstract trigger component for react",MIT
+Level 2,classnames,Не установлено,Неизвестно,2.5.1,2023-12-29T15:55:16.013Z,"A simple utility for conditionally joining classNames together",MIT
+Level 2,rc-motion,Не установлено,Неизвестно,2.9.5,2024-12-19T11:11:02.465Z,"React lifecycle controlled motion library",MIT
+Level 2,rc-overflow,Не установлено,Неизвестно,1.4.1,2025-01-08T08:53:06.977Z,"Auto collapse box when overflow",MIT
+Level 2,rc-util,Не установлено,Неизвестно,5.44.4,2025-02-08T07:29:39.695Z,"Common Utils For React Component",MIT
+Level 1,rc-rate,Не установлено,Неизвестно,2.13.1,2025-02-10T03:17:05.267Z,"React Star Rate Component",MIT
+Level 2,@babel/runtime,Не установлено,Неизвестно,7.26.9,2025-02-14T11:47:59.905Z,"babel's modular runtime helpers",MIT
+Level 2,classnames,Не установлено,Неизвестно,2.5.1,2023-12-29T15:55:16.013Z,"A simple utility for conditionally joining classNames together",MIT
+Level 2,rc-util,Не установлено,Неизвестно,5.44.4,2025-02-08T07:29:39.695Z,"Common Utils For React Component",MIT
+Level 1,rc-tabs,Не установлено,Неизвестно,15.5.1,2025-02-07T02:43:38.195Z,"tabs ui component for react",MIT
+Level 2,@babel/runtime,Не установлено,Неизвестно,7.26.9,2025-02-14T11:47:59.905Z,"babel's modular runtime helpers",MIT
+Level 2,classnames,Не установлено,Неизвестно,2.5.1,2023-12-29T15:55:16.013Z,"A simple utility for conditionally joining classNames together",MIT
+Level 2,rc-dropdown,Не установлено,Неизвестно,4.2.1,2024-12-11T07:28:23.920Z,"dropdown ui component for react",MIT
+Level 2,rc-menu,Не установлено,Неизвестно,9.16.1,2025-02-18T02:48:17.857Z,"menu ui component for react",MIT
+Level 2,rc-motion,Не установлено,Неизвестно,2.9.5,2024-12-19T11:11:02.465Z,"React lifecycle controlled motion library",MIT
+Level 2,rc-resize-observer,Не установлено,Неизвестно,1.4.3,2024-12-19T04:40:06.280Z,"Resize observer for React",MIT
+Level 2,rc-util,Не установлено,Неизвестно,5.44.4,2025-02-08T07:29:39.695Z,"Common Utils For React Component",MIT
+Level 1,rc-tree,Не установлено,Неизвестно,5.13.0,2025-01-07T03:23:39.483Z,"tree ui component for react",MIT
+Level 2,@babel/runtime,Не установлено,Неизвестно,7.26.9,2025-02-14T11:47:59.905Z,"babel's modular runtime helpers",MIT
+Level 2,classnames,Не установлено,Неизвестно,2.5.1,2023-12-29T15:55:16.013Z,"A simple utility for conditionally joining classNames together",MIT
+Level 2,rc-motion,Не установлено,Неизвестно,2.9.5,2024-12-19T11:11:02.465Z,"React lifecycle controlled motion library",MIT
+Level 2,rc-util,Не установлено,Неизвестно,5.44.4,2025-02-08T07:29:39.695Z,"Common Utils For React Component",MIT
+Level 2,rc-virtual-list,Не установлено,Неизвестно,3.18.2,2025-02-14T08:30:52.266Z,"React Virtual List Component",MIT
+Level 1,rc-util,Не установлено,Неизвестно,5.44.4,2025-02-08T07:29:39.695Z,"Common Utils For React Component",MIT
+Level 2,@babel/runtime,Не установлено,Неизвестно,7.26.9,2025-02-14T11:47:59.905Z,"babel's modular runtime helpers",MIT
+Level 2,react-is,Не установлено,Неизвестно,19.0.0,2024-12-05T18:10:41.382Z,"Brand checking of React Elements.",MIT
+Level 1,rc-image,Не установлено,Неизвестно,7.11.0,2024-09-09T14:54:14.578Z,"React easy to use image component",MIT
+Level 2,@babel/runtime,Не установлено,Неизвестно,7.26.9,2025-02-14T11:47:59.905Z,"babel's modular runtime helpers",MIT
+Level 2,@rc-component/portal,Не установлено,Неизвестно,1.1.2,2023-07-19T11:06:39.266Z,"React Portal Component",MIT
+Level 2,classnames,Не установлено,Неизвестно,2.5.1,2023-12-29T15:55:16.013Z,"A simple utility for conditionally joining classNames together",MIT
+Level 2,rc-dialog,Не установлено,Неизвестно,10.0.0,2025-01-09T06:33:11.084Z,"dialog ui component for react",MIT
+Level 2,rc-motion,Не установлено,Неизвестно,2.9.5,2024-12-19T11:11:02.465Z,"React lifecycle controlled motion library",MIT
+Level 2,rc-util,Не установлено,Неизвестно,5.44.4,2025-02-08T07:29:39.695Z,"Common Utils For React Component",MIT
+Level 1,rc-input,Не установлено,Неизвестно,1.7.2,2024-12-31T02:51:09.074Z,"React input component",MIT
+Level 2,@babel/runtime,Не установлено,Неизвестно,7.26.9,2025-02-14T11:47:59.905Z,"babel's modular runtime helpers",MIT
+Level 2,classnames,Не установлено,Неизвестно,2.5.1,2023-12-29T15:55:16.013Z,"A simple utility for conditionally joining classNames together",MIT
+Level 2,rc-util,Не установлено,Неизвестно,5.44.4,2025-02-08T07:29:39.695Z,"Common Utils For React Component",MIT
+Level 1,rc-steps,Не установлено,Неизвестно,6.0.1,2023-07-19T03:22:35.802Z,"steps ui component for react",MIT
+Level 2,@babel/runtime,Не установлено,Неизвестно,7.26.9,2025-02-14T11:47:59.905Z,"babel's modular runtime helpers",MIT
+Level 2,classnames,Не установлено,Неизвестно,2.5.1,2023-12-29T15:55:16.013Z,"A simple utility for conditionally joining classNames together",MIT
+Level 2,rc-util,Не установлено,Неизвестно,5.44.4,2025-02-08T07:29:39.695Z,"Common Utils For React Component",MIT
+Level 1,rc-table,Не установлено,Неизвестно,7.50.3,2025-02-14T07:43:11.350Z,"table ui component for react",MIT
+Level 2,@babel/runtime,Не установлено,Неизвестно,7.26.9,2025-02-14T11:47:59.905Z,"babel's modular runtime helpers",MIT
+Level 2,@rc-component/context,Не установлено,Неизвестно,1.4.0,2023-08-19T13:27:21.793Z,"React way perf context selector",MIT
+Level 2,classnames,Не установлено,Неизвестно,2.5.1,2023-12-29T15:55:16.013Z,"A simple utility for conditionally joining classNames together",MIT
+Level 2,rc-resize-observer,Не установлено,Неизвестно,1.4.3,2024-12-19T04:40:06.280Z,"Resize observer for React",MIT
+Level 2,rc-util,Не установлено,Неизвестно,5.44.4,2025-02-08T07:29:39.695Z,"Common Utils For React Component",MIT
+Level 2,rc-virtual-list,Не установлено,Неизвестно,3.18.2,2025-02-14T08:30:52.266Z,"React Virtual List Component",MIT
+Level 1,rc-dialog,Не установлено,Неизвестно,10.0.0,2025-01-09T06:33:11.084Z,"dialog ui component for react",MIT
+Level 2,rc-util,Не установлено,Неизвестно,5.44.4,2025-02-08T07:29:39.695Z,"Common Utils For React Component",MIT
+Level 2,rc-motion,Не установлено,Неизвестно,2.9.5,2024-12-19T11:11:02.465Z,"React lifecycle controlled motion library",MIT
+Level 2,classnames,Не установлено,Неизвестно,2.5.1,2023-12-29T15:55:16.013Z,"A simple utility for conditionally joining classNames together",MIT
+Level 2,@babel/runtime,Не установлено,Неизвестно,7.26.9,2025-02-14T11:47:59.905Z,"babel's modular runtime helpers",MIT
+Level 2,@rc-component/portal,Не установлено,Неизвестно,1.1.2,2023-07-19T11:06:39.266Z,"React Portal Component",MIT
+Level 1,rc-drawer,Не установлено,Неизвестно,8.0.0,2025-01-08T02:45:12.598Z,"drawer component for react",MIT
+Level 2,@babel/runtime,Не установлено,Неизвестно,7.26.9,2025-02-14T11:47:59.905Z,"babel's modular runtime helpers",MIT
+Level 2,@rc-component/portal,Не установлено,Неизвестно,1.1.2,2023-07-19T11:06:39.266Z,"React Portal Component",MIT
+Level 2,classnames,Не установлено,Неизвестно,2.5.1,2023-12-29T15:55:16.013Z,"A simple utility for conditionally joining classNames together",MIT
+Level 2,rc-motion,Не установлено,Неизвестно,2.9.5,2024-12-19T11:11:02.465Z,"React lifecycle controlled motion library",MIT
+Level 2,rc-util,Не установлено,Неизвестно,5.44.4,2025-02-08T07:29:39.695Z,"Common Utils For React Component",MIT
+Level 1,rc-motion,Не установлено,Неизвестно,2.9.5,2024-12-19T11:11:02.465Z,"React lifecycle controlled motion library",MIT
+Level 2,@babel/runtime,Не установлено,Неизвестно,7.26.9,2025-02-14T11:47:59.905Z,"babel's modular runtime helpers",MIT
+Level 2,classnames,Не установлено,Неизвестно,2.5.1,2023-12-29T15:55:16.013Z,"A simple utility for conditionally joining classNames together",MIT
+Level 2,rc-util,Не установлено,Неизвестно,5.44.4,2025-02-08T07:29:39.695Z,"Common Utils For React Component",MIT
+Level 1,rc-picker,Не установлено,Неизвестно,4.11.2,2025-02-17T12:13:54.474Z,"React date & time picker",MIT
+Level 2,@babel/runtime,Не установлено,Неизвестно,7.26.9,2025-02-14T11:47:59.905Z,"babel's modular runtime helpers",MIT
+Level 2,@rc-component/trigger,Не установлено,Неизвестно,3.0.0,2025-02-18T08:39:04.880Z,"base abstract trigger component for react",MIT
+Level 2,classnames,Не установлено,Неизвестно,2.5.1,2023-12-29T15:55:16.013Z,"A simple utility for conditionally joining classNames together",MIT
+Level 2,rc-overflow,Не установлено,Неизвестно,1.4.1,2025-01-08T08:53:06.977Z,"Auto collapse box when overflow",MIT
+Level 2,rc-resize-observer,Не установлено,Неизвестно,1.4.3,2024-12-19T04:40:06.280Z,"Resize observer for React",MIT
+Level 2,rc-util,Не установлено,Неизвестно,5.44.4,2025-02-08T07:29:39.695Z,"Common Utils For React Component",MIT
+Level 1,rc-select,Не установлено,Неизвестно,14.16.6,2025-01-17T09:16:47.847Z,"React Select",MIT
+Level 2,@babel/runtime,Не установлено,Неизвестно,7.26.9,2025-02-14T11:47:59.905Z,"babel's modular runtime helpers",MIT
+Level 2,@rc-component/trigger,Не установлено,Неизвестно,3.0.0,2025-02-18T08:39:04.880Z,"base abstract trigger component for react",MIT
+Level 2,classnames,Не установлено,Неизвестно,2.5.1,2023-12-29T15:55:16.013Z,"A simple utility for conditionally joining classNames together",MIT
+Level 2,rc-motion,Не установлено,Неизвестно,2.9.5,2024-12-19T11:11:02.465Z,"React lifecycle controlled motion library",MIT
+Level 2,rc-overflow,Не установлено,Неизвестно,1.4.1,2025-01-08T08:53:06.977Z,"Auto collapse box when overflow",MIT
+Level 2,rc-util,Не установлено,Неизвестно,5.44.4,2025-02-08T07:29:39.695Z,"Common Utils For React Component",MIT
+Level 2,rc-virtual-list,Не установлено,Неизвестно,3.18.2,2025-02-14T08:30:52.266Z,"React Virtual List Component",MIT
+Level 1,rc-slider,Не установлено,Неизвестно,11.1.8,2024-12-31T08:49:44.704Z,"Slider UI component for React",MIT
+Level 2,@babel/runtime,Не установлено,Неизвестно,7.26.9,2025-02-14T11:47:59.905Z,"babel's modular runtime helpers",MIT
+Level 2,classnames,Не установлено,Неизвестно,2.5.1,2023-12-29T15:55:16.013Z,"A simple utility for conditionally joining classNames together",MIT
+Level 2,rc-util,Не установлено,Неизвестно,5.44.4,2025-02-08T07:29:39.695Z,"Common Utils For React Component",MIT
+Level 1,rc-switch,Не установлено,Неизвестно,4.1.0,2023-04-23T12:05:09.604Z,"switch ui component for react",MIT
+Level 2,@babel/runtime,Не установлено,Неизвестно,7.26.9,2025-02-14T11:47:59.905Z,"babel's modular runtime helpers",MIT
+Level 2,classnames,Не установлено,Неизвестно,2.5.1,2023-12-29T15:55:16.013Z,"A simple utility for conditionally joining classNames together",MIT
+Level 2,rc-util,Не установлено,Неизвестно,5.44.4,2025-02-08T07:29:39.695Z,"Common Utils For React Component",MIT
+Level 1,rc-upload,Не установлено,Неизвестно,4.8.1,2024-08-30T15:21:49.346Z,"upload ui component for react",MIT
+Level 2,@babel/runtime,Не установлено,Неизвестно,7.26.9,2025-02-14T11:47:59.905Z,"babel's modular runtime helpers",MIT
+Level 2,classnames,Не установлено,Неизвестно,2.5.1,2023-12-29T15:55:16.013Z,"A simple utility for conditionally joining classNames together",MIT
+Level 2,rc-util,Не установлено,Неизвестно,5.44.4,2025-02-08T07:29:39.695Z,"Common Utils For React Component",MIT
+Level 1,classnames,Не установлено,Неизвестно,2.5.1,2023-12-29T15:55:16.013Z,"A simple utility for conditionally joining classNames together",MIT
+Level 1,rc-tooltip,Не установлено,Неизвестно,6.4.0,2025-01-07T03:02:32.558Z,"React Tooltip",MIT
+Level 2,@babel/runtime,Не установлено,Неизвестно,7.26.9,2025-02-14T11:47:59.905Z,"babel's modular runtime helpers",MIT
+Level 2,@rc-component/trigger,Не установлено,Неизвестно,3.0.0,2025-02-18T08:39:04.880Z,"base abstract trigger component for react",MIT
+Level 2,classnames,Не установлено,Неизвестно,2.5.1,2023-12-29T15:55:16.013Z,"A simple utility for conditionally joining classNames together",MIT
+Level 2,rc-util,Не установлено,Неизвестно,5.44.4,2025-02-08T07:29:39.695Z,"Common Utils For React Component",MIT
+Level 1,rc-cascader,Не установлено,Неизвестно,3.33.0,2025-01-07T03:27:29.229Z,"cascade select ui component for react",MIT
+Level 2,@babel/runtime,Не установлено,Неизвестно,7.26.9,2025-02-14T11:47:59.905Z,"babel's modular runtime helpers",MIT
+Level 2,classnames,Не установлено,Неизвестно,2.5.1,2023-12-29T15:55:16.013Z,"A simple utility for conditionally joining classNames together",MIT
+Level 2,rc-select,Не установлено,Неизвестно,14.16.6,2025-01-17T09:16:47.847Z,"React Select",MIT
+Level 2,rc-tree,Не установлено,Неизвестно,5.13.0,2025-01-07T03:23:39.483Z,"tree ui component for react",MIT
+Level 2,rc-util,Не установлено,Неизвестно,5.44.4,2025-02-08T07:29:39.695Z,"Common Utils For React Component",MIT
+Level 1,rc-checkbox,Не установлено,Неизвестно,3.5.0,2024-11-20T03:04:34.103Z,"checkbox ui component for react",MIT
+Level 2,@babel/runtime,Не установлено,Неизвестно,7.26.9,2025-02-14T11:47:59.905Z,"babel's modular runtime helpers",MIT
+Level 2,classnames,Не установлено,Неизвестно,2.5.1,2023-12-29T15:55:16.013Z,"A simple utility for conditionally joining classNames together",MIT
+Level 2,rc-util,Не установлено,Неизвестно,5.44.4,2025-02-08T07:29:39.695Z,"Common Utils For React Component",MIT
+Level 1,rc-collapse,Не установлено,Неизвестно,4.0.0,2025-01-07T09:26:30.958Z,"rc-collapse ui component for react",MIT
+Level 2,@babel/runtime,Не установлено,Неизвестно,7.26.9,2025-02-14T11:47:59.905Z,"babel's modular runtime helpers",MIT
+Level 2,classnames,Не установлено,Неизвестно,2.5.1,2023-12-29T15:55:16.013Z,"A simple utility for conditionally joining classNames together",MIT
+Level 2,rc-motion,Не установлено,Неизвестно,2.9.5,2024-12-19T11:11:02.465Z,"React lifecycle controlled motion library",MIT
+Level 2,rc-util,Не установлено,Неизвестно,5.44.4,2025-02-08T07:29:39.695Z,"Common Utils For React Component",MIT
+Level 1,rc-dropdown,Не установлено,Неизвестно,4.2.1,2024-12-11T07:28:23.920Z,"dropdown ui component for react",MIT
+Level 2,@babel/runtime,Не установлено,Неизвестно,7.26.9,2025-02-14T11:47:59.905Z,"babel's modular runtime helpers",MIT
+Level 2,@rc-component/trigger,Не установлено,Неизвестно,3.0.0,2025-02-18T08:39:04.880Z,"base abstract trigger component for react",MIT
+Level 2,classnames,Не установлено,Неизвестно,2.5.1,2023-12-29T15:55:16.013Z,"A simple utility for conditionally joining classNames together",MIT
+Level 2,rc-util,Не установлено,Неизвестно,5.44.4,2025-02-08T07:29:39.695Z,"Common Utils For React Component",MIT
+Level 1,rc-mentions,Не установлено,Неизвестно,2.19.1,2024-12-31T08:15:36.586Z,"React Mentions",MIT
+Level 2,@babel/runtime,Не установлено,Неизвестно,7.26.9,2025-02-14T11:47:59.905Z,"babel's modular runtime helpers",MIT
+Level 2,@rc-component/trigger,Не установлено,Неизвестно,3.0.0,2025-02-18T08:39:04.880Z,"base abstract trigger component for react",MIT
+Level 2,classnames,Не установлено,Неизвестно,2.5.1,2023-12-29T15:55:16.013Z,"A simple utility for conditionally joining classNames together",MIT
+Level 2,rc-input,Не установлено,Неизвестно,1.7.2,2024-12-31T02:51:09.074Z,"React input component",MIT
+Level 2,rc-menu,Не установлено,Неизвестно,9.16.1,2025-02-18T02:48:17.857Z,"menu ui component for react",MIT
+Level 2,rc-textarea,Не установлено,Неизвестно,1.9.0,2024-12-31T07:55:00.753Z,"Pretty Textarea react component used in used in ant.design",MIT
+Level 2,rc-util,Не установлено,Неизвестно,5.44.4,2025-02-08T07:29:39.695Z,"Common Utils For React Component",MIT
+Level 1,rc-progress,Не установлено,Неизвестно,4.0.0,2024-03-22T03:27:47.009Z,"progress ui component for react",MIT
+Level 2,@babel/runtime,Не установлено,Неизвестно,7.26.9,2025-02-14T11:47:59.905Z,"babel's modular runtime helpers",MIT
+Level 2,classnames,Не установлено,Неизвестно,2.5.1,2023-12-29T15:55:16.013Z,"A simple utility for conditionally joining classNames together",MIT
+Level 2,rc-util,Не установлено,Неизвестно,5.44.4,2025-02-08T07:29:39.695Z,"Common Utils For React Component",MIT
+Level 1,rc-textarea,Не установлено,Неизвестно,1.9.0,2024-12-31T07:55:00.753Z,"Pretty Textarea react component used in used in ant.design",MIT
+Level 2,@babel/runtime,Не установлено,Неизвестно,7.26.9,2025-02-14T11:47:59.905Z,"babel's modular runtime helpers",MIT
+Level 2,classnames,Не установлено,Неизвестно,2.5.1,2023-12-29T15:55:16.013Z,"A simple utility for conditionally joining classNames together",MIT
+Level 2,rc-input,Не установлено,Неизвестно,1.7.2,2024-12-31T02:51:09.074Z,"React input component",MIT
+Level 2,rc-resize-observer,Не установлено,Неизвестно,1.4.3,2024-12-19T04:40:06.280Z,"Resize observer for React",MIT
+Level 2,rc-util,Не установлено,Неизвестно,5.44.4,2025-02-08T07:29:39.695Z,"Common Utils For React Component",MIT
+Level 1,rc-segmented,Не установлено,Неизвестно,2.7.0,2024-12-08T15:40:22.798Z,"React segmented controls used in ant.design",MIT
+Level 2,@babel/runtime,Не установлено,Неизвестно,7.26.9,2025-02-14T11:47:59.905Z,"babel's modular runtime helpers",MIT
+Level 2,classnames,Не установлено,Неизвестно,2.5.1,2023-12-29T15:55:16.013Z,"A simple utility for conditionally joining classNames together",MIT
+Level 2,rc-motion,Не установлено,Неизвестно,2.9.5,2024-12-19T11:11:02.465Z,"React lifecycle controlled motion library",MIT
+Level 2,rc-util,Не установлено,Неизвестно,5.44.4,2025-02-08T07:29:39.695Z,"Common Utils For React Component",MIT
+Level 1,rc-field-form,Не установлено,Неизвестно,2.7.0,2024-12-12T06:08:52.202Z,"React Form Component",MIT
+Level 2,@babel/runtime,Не установлено,Неизвестно,7.26.9,2025-02-14T11:47:59.905Z,"babel's modular runtime helpers",MIT
+Level 2,@rc-component/async-validator,Не установлено,Неизвестно,5.0.4,2024-05-14T06:57:24.548Z,"Validate form asynchronous",MIT
+Level 2,rc-util,Не установлено,Неизвестно,5.44.4,2025-02-08T07:29:39.695Z,"Common Utils For React Component",MIT
+Level 1,rc-pagination,Не установлено,Неизвестно,5.1.0,2025-01-27T05:20:52.418Z,"pagination ui component for react",MIT
+Level 2,@babel/runtime,Не установлено,Неизвестно,7.26.9,2025-02-14T11:47:59.905Z,"babel's modular runtime helpers",MIT
+Level 2,classnames,Не установлено,Неизвестно,2.5.1,2023-12-29T15:55:16.013Z,"A simple utility for conditionally joining classNames together",MIT
+Level 2,rc-util,Не установлено,Неизвестно,5.44.4,2025-02-08T07:29:39.695Z,"Common Utils For React Component",MIT
+Level 1,@babel/runtime,Не установлено,Неизвестно,7.26.9,2025-02-14T11:47:59.905Z,"babel's modular runtime helpers",MIT
+Level 2,regenerator-runtime,Не установлено,Неизвестно,0.14.1,2023-12-15T20:52:02.938Z,"Runtime for Regenerator-compiled generator and async functions.",MIT
+Level 1,rc-tree-select,Не установлено,Неизвестно,5.27.0,2025-01-07T03:27:39.864Z,"tree-select ui component for react",MIT
+Level 2,@babel/runtime,Не установлено,Неизвестно,7.26.9,2025-02-14T11:47:59.905Z,"babel's modular runtime helpers",MIT
+Level 2,classnames,Не установлено,Неизвестно,2.5.1,2023-12-29T15:55:16.013Z,"A simple utility for conditionally joining classNames together",MIT
+Level 2,rc-select,Не установлено,Неизвестно,14.16.6,2025-01-17T09:16:47.847Z,"React Select",MIT
+Level 2,rc-tree,Не установлено,Неизвестно,5.13.0,2025-01-07T03:23:39.483Z,"tree ui component for react",MIT
+Level 2,rc-util,Не установлено,Неизвестно,5.44.4,2025-02-08T07:29:39.695Z,"Common Utils For React Component",MIT
+Level 1,rc-input-number,Не установлено,Неизвестно,9.4.0,2024-12-31T02:55:52.319Z,"React input-number component",MIT
+Level 2,@babel/runtime,Не установлено,Неизвестно,7.26.9,2025-02-14T11:47:59.905Z,"babel's modular runtime helpers",MIT
+Level 2,@rc-component/mini-decimal,Не установлено,Неизвестно,1.1.0,2023-06-12T08:19:37.773Z,"Lite lib to only support decimal add calculation",MIT
+Level 2,classnames,Не установлено,Неизвестно,2.5.1,2023-12-29T15:55:16.013Z,"A simple utility for conditionally joining classNames together",MIT
+Level 2,rc-input,Не установлено,Неизвестно,1.7.2,2024-12-31T02:51:09.074Z,"React input component",MIT
+Level 2,rc-util,Не установлено,Неизвестно,5.44.4,2025-02-08T07:29:39.695Z,"Common Utils For React Component",MIT
+Level 1,rc-notification,Не установлено,Неизвестно,5.6.3,2025-02-07T10:23:32.241Z,"notification ui component for react",MIT
+Level 2,@babel/runtime,Не установлено,Неизвестно,7.26.9,2025-02-14T11:47:59.905Z,"babel's modular runtime helpers",MIT
+Level 2,classnames,Не установлено,Неизвестно,2.5.1,2023-12-29T15:55:16.013Z,"A simple utility for conditionally joining classNames together",MIT
+Level 2,rc-motion,Не установлено,Неизвестно,2.9.5,2024-12-19T11:11:02.465Z,"React lifecycle controlled motion library",MIT
+Level 2,rc-util,Не установлено,Неизвестно,5.44.4,2025-02-08T07:29:39.695Z,"Common Utils For React Component",MIT
+Level 1,@ant-design/icons,^5.6.1,Неизвестно,5.6.1,2025-02-07T09:13:36.334Z,"[![NPM version](https://img.shields.io/npm/v/@ant-design/icons.svg?style=flat)](https://npmjs.org/package/@ant-design/icons) [![NPM downloads](http://img.shields.io/npm/dm/@ant-design/icons.svg?style=flat)](https://npmjs.org/package/@ant-design/icons)",MIT
+Level 2,@ant-design/colors,Не установлено,Неизвестно,7.2.0,2024-12-31T15:03:29.773Z,"Color palettes calculator of Ant Design",MIT
+Level 2,@ant-design/icons-svg,Не установлено,Неизвестно,4.4.2,2024-02-01T06:43:00.450Z,"Abstract nodes for ant design icons.",MIT
+Level 2,@babel/runtime,Не установлено,Неизвестно,7.26.9,2025-02-14T11:47:59.905Z,"babel's modular runtime helpers",MIT
+Level 2,classnames,Не установлено,Неизвестно,2.5.1,2023-12-29T15:55:16.013Z,"A simple utility for conditionally joining classNames together",MIT
+Level 2,rc-util,Не установлено,Неизвестно,5.44.4,2025-02-08T07:29:39.695Z,"Common Utils For React Component",MIT
+Level 1,copy-to-clipboard,Не установлено,Неизвестно,3.3.3,2022-11-13T21:14:04.484Z,"Copy stuff into clipboard using JS with fallbacks",MIT
+Level 2,toggle-selection,Не установлено,Неизвестно,1.0.6,2017-07-24T18:50:13.231Z,"Toggle current selected content in browser",MIT
+Level 1,throttle-debounce,Не установлено,Неизвестно,5.0.2,2024-06-24T14:06:21.768Z,"Throttle and debounce functions.",MIT
+Level 1,@ant-design/colors,Не установлено,Неизвестно,7.2.0,2024-12-31T15:03:29.773Z,"Color palettes calculator of Ant Design",MIT
+Level 2,@ant-design/fast-color,Не установлено,Неизвестно,2.0.6,2024-08-06T14:02:23.806Z,"fast and small color class",MIT
+Level 1,@rc-component/tour,Не установлено,Неизвестно,2.0.0,2025-01-25T11:14:15.513Z,"React tour Component",MIT
+Level 2,@babel/runtime,Не установлено,Неизвестно,7.26.9,2025-02-14T11:47:59.905Z,"babel's modular runtime helpers",MIT
+Level 2,@rc-component/portal,Не установлено,Неизвестно,1.1.2,2023-07-19T11:06:39.266Z,"React Portal Component",MIT
+Level 2,@rc-component/trigger,Не установлено,Неизвестно,3.0.0,2025-02-18T08:39:04.880Z,"base abstract trigger component for react",MIT
+Level 2,classnames,Не установлено,Неизвестно,2.5.1,2023-12-29T15:55:16.013Z,"A simple utility for conditionally joining classNames together",MIT
+Level 2,rc-util,Не установлено,Неизвестно,5.44.4,2025-02-08T07:29:39.695Z,"Common Utils For React Component",MIT
+Level 1,rc-resize-observer,Не установлено,Неизвестно,1.4.3,2024-12-19T04:40:06.280Z,"Resize observer for React",MIT
+Level 2,@babel/runtime,Не установлено,Неизвестно,7.26.9,2025-02-14T11:47:59.905Z,"babel's modular runtime helpers",MIT
+Level 2,classnames,Не установлено,Неизвестно,2.5.1,2023-12-29T15:55:16.013Z,"A simple utility for conditionally joining classNames together",MIT
+Level 2,rc-util,Не установлено,Неизвестно,5.44.4,2025-02-08T07:29:39.695Z,"Common Utils For React Component",MIT
+Level 2,resize-observer-polyfill,Не установлено,Неизвестно,1.5.1,2018-12-09T15:41:22.096Z,"A polyfill for the Resize Observer API",MIT
+Level 1,@ant-design/cssinjs,Не установлено,Неизвестно,1.23.0,2025-01-22T03:33:39.695Z,"Component level cssinjs resolution for antd",MIT
+Level 2,stylis,Не установлено,Неизвестно,4.3.6,2025-02-06T10:47:12.580Z,"A Light–weight CSS Preprocessor",MIT
+Level 2,csstype,Не установлено,Неизвестно,3.1.3,2023-12-07T10:18:21.772Z,"Strict TypeScript and Flow types for style based on MDN data",MIT
+Level 2,rc-util,Не установлено,Неизвестно,5.44.4,2025-02-08T07:29:39.695Z,"Common Utils For React Component",MIT
+Level 2,classnames,Не установлено,Неизвестно,2.5.1,2023-12-29T15:55:16.013Z,"A simple utility for conditionally joining classNames together",MIT
+Level 2,@emotion/hash,Не установлено,Неизвестно,0.9.2,2024-07-19T06:51:57.403Z,"A MurmurHash2 implementation",MIT
+Level 2,@babel/runtime,Не установлено,Неизвестно,7.26.9,2025-02-14T11:47:59.905Z,"babel's modular runtime helpers",MIT
+Level 2,@emotion/unitless,Не установлено,Неизвестно,0.10.0,2024-08-21T09:24:50.195Z,"An object of css properties that don't accept values with units",MIT
+Level 1,@rc-component/qrcode,Не установлено,Неизвестно,1.0.0,2024-06-20T02:53:42.569Z,"base abstract trigger component for react",MIT
+Level 2,@babel/runtime,Не установлено,Неизвестно,7.26.9,2025-02-14T11:47:59.905Z,"babel's modular runtime helpers",MIT
+Level 2,classnames,Не установлено,Неизвестно,2.5.1,2023-12-29T15:55:16.013Z,"A simple utility for conditionally joining classNames together",MIT
+Level 2,rc-util,Не установлено,Неизвестно,5.44.4,2025-02-08T07:29:39.695Z,"Common Utils For React Component",MIT
+Level 1,@rc-component/trigger,Не установлено,Неизвестно,3.0.0,2025-02-18T08:39:04.880Z,"base abstract trigger component for react",MIT
+Level 2,@rc-component/motion,Не установлено,Неизвестно,1.1.4,2025-02-18T02:59:07.550Z,"React lifecycle controlled motion library",MIT
+Level 2,@rc-component/portal,Не установлено,Неизвестно,1.1.2,2023-07-19T11:06:39.266Z,"React Portal Component",MIT
+Level 2,@rc-component/resize-observer,Не установлено,Неизвестно,1.0.0,2025-01-23T03:58:59.979Z,"Resize observer for React",MIT
+Level 2,@rc-component/util,Не установлено,Неизвестно,1.2.1,2025-02-08T07:05:11.446Z,"Common Utils For React Component",MIT
+Level 2,classnames,Не установлено,Неизвестно,2.5.1,2023-12-29T15:55:16.013Z,"A simple utility for conditionally joining classNames together",MIT
+Level 1,@ant-design/fast-color,Не установлено,Неизвестно,2.0.6,2024-08-06T14:02:23.806Z,"fast and small color class",MIT
+Level 2,@babel/runtime,Не установлено,Неизвестно,7.26.9,2025-02-14T11:47:59.905Z,"babel's modular runtime helpers",MIT
+Level 1,@ant-design/react-slick,Не установлено,Неизвестно,1.1.2,2024-04-01T10:01:14.700Z," React port of slick carousel",MIT
+Level 2,json2mq,Не установлено,Неизвестно,0.2.0,2015-01-15T06:37:41.006Z,"Generate media query string from JSON or javascript object",MIT
+Level 2,classnames,Не установлено,Неизвестно,2.5.1,2023-12-29T15:55:16.013Z,"A simple utility for conditionally joining classNames together",MIT
+Level 2,@babel/runtime,Не установлено,Неизвестно,7.26.9,2025-02-14T11:47:59.905Z,"babel's modular runtime helpers",MIT
+Level 2,throttle-debounce,Не установлено,Неизвестно,5.0.2,2024-06-24T14:06:21.768Z,"Throttle and debounce functions.",MIT
+Level 2,resize-observer-polyfill,Не установлено,Неизвестно,1.5.1,2018-12-09T15:41:22.096Z,"A polyfill for the Resize Observer API",MIT
+Level 1,@ant-design/cssinjs-utils,Не установлено,Неизвестно,1.1.3,2024-12-05T14:56:10.935Z,"A cssinjs util library to support Ant Design (antd) and its ecosystem libraries.",MIT
+Level 2,rc-util,Не установлено,Неизвестно,5.44.4,2025-02-08T07:29:39.695Z,"Common Utils For React Component",MIT
+Level 2,@babel/runtime,Не установлено,Неизвестно,7.26.9,2025-02-14T11:47:59.905Z,"babel's modular runtime helpers",MIT
+Level 2,@ant-design/cssinjs,Не установлено,Неизвестно,1.23.0,2025-01-22T03:33:39.695Z,"Component level cssinjs resolution for antd",MIT
+Level 1,@rc-component/color-picker,Не установлено,Неизвестно,2.0.1,2024-08-07T12:55:15.200Z,"React Color Picker",MIT
+Level 2,@ant-design/fast-color,Не установлено,Неизвестно,2.0.6,2024-08-06T14:02:23.806Z,"fast and small color class",MIT
+Level 2,@babel/runtime,Не установлено,Неизвестно,7.26.9,2025-02-14T11:47:59.905Z,"babel's modular runtime helpers",MIT
+Level 2,classnames,Не установлено,Неизвестно,2.5.1,2023-12-29T15:55:16.013Z,"A simple utility for conditionally joining classNames together",MIT
+Level 2,rc-util,Не установлено,Неизвестно,5.44.4,2025-02-08T07:29:39.695Z,"Common Utils For React Component",MIT
+Level 1,scroll-into-view-if-needed,Не установлено,Неизвестно,3.1.0,2023-09-13T15:23:12.302Z,"Ponyfill for upcoming Element.scrollIntoView() APIs like scrollMode: if-needed, behavior: smooth and block: center",MIT
+Level 2,compute-scroll-into-view,Не установлено,Неизвестно,3.1.1,2025-01-10T19:10:35.418Z,"The engine that powers scroll-into-view-if-needed",MIT
+Level 1,@rc-component/mutate-observer,Не установлено,Неизвестно,2.0.0,2025-01-24T10:36:01.452Z,"React MutateObserver Component",MIT
+Level 2,@rc-component/util,Не установлено,Неизвестно,1.2.1,2025-02-08T07:05:11.446Z,"Common Utils For React Component",MIT
+Level 2,classnames,Не установлено,Неизвестно,2.5.1,2023-12-29T15:55:16.013Z,"A simple utility for conditionally joining classNames together",MIT
+Level 0,react,^19.0.0,Неизвестно,19.0.0,2024-12-05T18:10:21.804Z,"React is a JavaScript library for building user interfaces.",MIT
+Level 0,react-dom,^19.0.0,Неизвестно,19.0.0,2024-12-05T18:10:30.516Z,"React package for working with the DOM.",MIT
+Level 1,scheduler,Не установлено,Неизвестно,0.25.0,2024-12-05T18:11:03.023Z,"Cooperative scheduler for the browser environment.",MIT
+Level 0,react-redux,^9.2.0,Неизвестно,9.2.0,2024-12-10T23:06:45.755Z,"Official React bindings for Redux",MIT
+Level 1,@types/use-sync-external-store,Не установлено,Неизвестно,0.0.6,2023-11-07T18:34:28.937Z,"TypeScript definitions for use-sync-external-store",MIT
+Level 1,use-sync-external-store,Не установлено,Неизвестно,1.4.0,2024-12-05T18:10:59.024Z,"Backwards compatible shim for React's useSyncExternalStore. Works with any React that supports hooks.",MIT
