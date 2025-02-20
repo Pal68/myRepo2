@@ -1,25 +1,25 @@
-  brace-expansion;01.01.1900;https://github.com/juliangruber/brace-expansion;Brace expansion as known from sh/bash;1
+  readable-stream;01.01.1900;https://github.com/nodejs/readable-stream;Node.js Streams, a user-land copy of the stream library from Node.js;1
+  safe-buffer;01.01.1900;https://github.com/feross/safe-buffer;Safer Node.js Buffer API;1
+  string-decoder;01/01/1900
   debug;01.01.1900;https://github.com/debug-js/debug#readme;Lightweight debugging utility for Node.js and the browser;1
-  doctrine;01.01.1900;https://github.com/eslint/doctrine;JSDoc parser;1
-  minimatch;01.01.1900;https://github.com/isaacs/minimatch#readme;a glob matcher in javascript;1
   ms;01.01.1900;https://github.com/vercel/ms#readme;Tiny millisecond conversion utility;1
-  estraverse;01.01.1900;https://github.com/estools/estraverse;ECMAScript JS AST traversal functions;1
-  resolve;01.01.1900;https://github.com/browserify/resolve#readme;resolve like require.resolve() on behalf of files asynchronously and synchronously;1
-  semver;01.01.1900;https://github.com/npm/node-semver#readme;The semantic version parser used by npm.;1
-  core;01.01.1900;Домашняя страница не указана;Core Libs;1
   debug;01.01.1900;https://github.com/debug-js/debug#readme;Lightweight debugging utility for Node.js and the browser;1
-  eslint-scope;01.01.1900;https://github.com/eslint/js/blob/main/packages/eslint-scope/README.md;ECMAScript scope analyzer for ESLint;1
-  estraverse;01.01.1900;https://github.com/estools/estraverse;ECMAScript JS AST traversal functions;1
-  find-up;01.01.1900;https://github.com/sindresorhus/find-up#readme;Find a file or directory by walking up parent directories;1
-  glob-parent;01.01.1900;https://github.com/gulpjs/glob-parent#readme;Extract the non-magic parent path from a glob string.;1
-  locate-path;01.01.1900;https://github.com/sindresorhus/locate-path#readme;Get the first path that exists on disk of multiple paths;1
+  ms;01.01.1900;https://github.com/vercel/ms#readme;Tiny millisecond conversion utility;1
+  resolve-from;01.01.1900;https://github.com/sindresorhus/resolve-from#readme;Resolve the path of a module like `require.resolve()` but from a given path;1
+  make-dir;01.01.1900;https://github.com/sindresorhus/make-dir#readme;Make a directory and its parents if needed - Think `mkdir -p`;1
+  debug;01.01.1900;https://github.com/debug-js/debug#readme;Lightweight debugging utility for Node.js and the browser;1
   ms;01.01.1900;https://github.com/vercel/ms#readme;Tiny millisecond conversion utility;1
   p-limit;01.01.1900;https://github.com/sindresorhus/p-limit#readme;Run multiple promise-returning & async functions with limited concurrency;1
-  p-locate;01.01.1900;https://github.com/sindresorhus/p-locate#readme;Get the first fulfilled promise that satisfies the provided testing function;1
-  estraverse;01.01.1900;https://github.com/estools/estraverse;ECMAScript JS AST traversal functions;1
-  estraverse;01.01.1900;https://github.com/estools/estraverse;ECMAScript JS AST traversal functions;1
-  signal-exit;01.01.1900;https://github.com/tapjs/signal-exit#readme;when you want to fire an event no matter how a process exits.;1
-  brace-expansion;01.01.1900;https://github.com/juliangruber/brace-expansion;Brace expansion as known from sh/bash;1
-  minimatch;01.01.1900;https://github.com/isaacs/minimatch#readme;a glob matcher in javascript;1
-  commander;01.01.1900;https://github.com/tj/commander.js#readme;the complete solution for node.js command-line programs;1
-  which;01.01.1900;https://github.com/npm/node-which#readme;Like which(1) unix command. Find the first instance of an executable in the PATH.;1
+  p-limit;01.01.1900;https://github.com/sindresorhus/p-limit#readme;Run multiple promise-returning & async functions with limited concurrency;1
+  jest-worker;01.01.1900;https://github.com/jestjs/jest#readme;Module for executing heavy tasks under forked processes in parallel, by providing a `Promise` based interface, minimum overhead, and bound workers.;1
+  support-color;01.01.1900;https://github.com/chalk/supports-color#readme;Detect whether a terminal supports color;1
+  jest-worker;01.01.1900;https://github.com/jestjs/jest#readme;Module for executing heavy tasks under forked processes in parallel, by providing a `Promise` based interface, minimum overhead, and bound workers.;1
+  p-limit;01.01.1900;https://github.com/sindresorhus/p-limit#readme;Run multiple promise-returning & async functions with limited concurrency;1
+  source-map-support;01.01.1900;https://github.com/evanw/node-source-map-support#readme;Fixes stack traces for files with source maps;1
+  supports-color;01.01.1900;https://github.com/chalk/supports-color#readme;Detect whether a terminal supports color;1
+  camelcase;01.01.1900;https://github.com/sindresorhus/camelcase#readme;Convert a dash/dot/underscore/space separated string to camelCase or PascalCase: `foo-bar` → `fooBar`;1
+  supports-color;01.01.1900;https://github.com/chalk/supports-color#readme;Detect whether a terminal supports color;1
+  semver;01.01.1900;https://github.com/npm/node-semver#readme;The semantic version parser used by npm.;1
+  ajv;01.01.1900;https://ajv.js.org;Another JSON Schema Validator;1
+  ajv-keywords;01.01.1900;https://github.com/epoberezkin/ajv-keywords#readme;Additional JSON-Schema keywords for Ajv JSON validator;1
+  json-schema-traverse;01.01.1900;https://github.com/epoberezkin/json-schema-traverse#readme;Traverse JSON Schema passing each schema object to callback;1
