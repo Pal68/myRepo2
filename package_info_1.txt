@@ -1,24 +1,25 @@
+  chalk;01.01.1900;https://github.com/chalk/chalk#readme;Terminal string styling done right;1
+  dom-accessibility-api;01.01.1900;https://github.com/eps1lon/dom-accessibility-api#readme;Implements https://w3c.github.io/accname/;1
+  express-serve-static-core;01.01.1900;Домашняя страница не указана;only here to make types work;1
   debug;01.01.1900;https://github.com/debug-js/debug#readme;Lightweight debugging utility for Node.js and the browser;1
   ms;01.01.1900;https://github.com/vercel/ms#readme;Tiny millisecond conversion utility;1
+  debug;01.01.1900;https://github.com/debug-js/debug#readme;Lightweight debugging utility for Node.js and the browser;1
+  ms;01.01.1900;https://github.com/vercel/ms#readme;Tiny millisecond conversion utility;1
+  brace-expansion;01.01.1900;https://github.com/juliangruber/brace-expansion;Brace expansion as known from sh/bash;1
+  debug;01.01.1900;https://github.com/debug-js/debug#readme;Lightweight debugging utility for Node.js and the browser;1
+  minimatch;01.01.1900;https://github.com/isaacs/minimatch#readme;a glob matcher in javascript;1
+  ms;01.01.1900;https://github.com/vercel/ms#readme;Tiny millisecond conversion utility;1
+  negotiator;01.01.1900;https://github.com/jshttp/negotiator#readme;HTTP content negotiation;1
+  debug;01.01.1900;https://github.com/debug-js/debug#readme;Lightweight debugging utility for Node.js and the browser;1
+  ms;01.01.1900;https://github.com/vercel/ms#readme;Tiny millisecond conversion utility;1
+  ajv;01.01.1900;https://ajv.js.org;Another JSON Schema Validator;1
+  json-schema-traverse;01.01.1900;https://github.com/epoberezkin/json-schema-traverse#readme;Traverse JSON Schema passing each schema object to callback;1
+  istanbul-lib-instrument;01.01.1900;https://istanbul.js.org/;Core istanbul API for JS code coverage;1
   semver;01.01.1900;https://github.com/npm/node-semver#readme;The semantic version parser used by npm.;1
-  semver;01.01.1900;https://github.com/npm/node-semver#readme;The semantic version parser used by npm.;1
-  debug;01.01.1900;https://github.com/debug-js/debug#readme;Lightweight debugging utility for Node.js and the browser;1
-  globals;01.01.1900;https://github.com/sindresorhus/globals#readme;Global identifiers from different JavaScript environments;1
-  ms;01.01.1900;https://github.com/vercel/ms#readme;Tiny millisecond conversion utility;1
-  trace_mapping;01/01/1900
-  eslint_visitor_keys;01/01/1900
+  keyv;01.01.1900;https://github.com/jaredwray/keyv;Simple key-value storage with support for multiple backends;1
+  cssom;01.01.1900;https://github.com/NV/CSSOM#readme;CSS Object Model implementation and CSS parser;1
+  estraverse;01.01.1900;https://github.com/estools/estraverse;ECMAScript JS AST traversal functions;1
   debug;01.01.1900;https://github.com/debug-js/debug#readme;Lightweight debugging utility for Node.js and the browser;1
   ms;01.01.1900;https://github.com/vercel/ms#readme;Tiny millisecond conversion utility;1
   debug;01.01.1900;https://github.com/debug-js/debug#readme;Lightweight debugging utility for Node.js and the browser;1
-  globals;01.01.1900;https://github.com/sindresorhus/globals#readme;Global identifiers from different JavaScript environments;1
   ms;01.01.1900;https://github.com/vercel/ms#readme;Tiny millisecond conversion utility;1
-  retry;01.01.1900;https://github.com/tim-kos/node-retry;Abstraction for exponential and custom retry strategies for failed operations.;1
-  argparse;01.01.1900;https://github.com/nodeca/argparse#readme;CLI arguments parser. Native port of python's argparse.;1
-  js-yaml;01.01.1900;https://github.com/nodeca/js-yaml#readme;YAML 1.2 parser and serializer;1
-  jest-worker;01.01.1900;https://github.com/jestjs/jest#readme;Module for executing heavy tasks under forked processes in parallel, by providing a `Promise` based interface, minimum overhead, and bound workers.;1
-  support-color;01.01.1900;https://github.com/chalk/supports-color#readme;Detect whether a terminal supports color;1
-  signal-exit;01.01.1900;https://github.com/tapjs/signal-exit#readme;when you want to fire an event no matter how a process exits.;1
-  write-file-atomic;01.01.1900;https://github.com/npm/write-file-atomic;Write files in an atomic fashion w/configurable ownership;1
-  ansi-styles;01.01.1900;https://github.com/chalk/ansi-styles#readme;ANSI escape codes for styling strings in the terminal;1
-  pretty-format;01.01.1900;https://github.com/jestjs/jest#readme;Stringify any JavaScript value.;1
-  react-is;01.01.1900;https://react.dev/;Brand checking of React Elements.;1
