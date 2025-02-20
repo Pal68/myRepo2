@@ -1,25 +1,25 @@
-  readable-stream;01.01.1900;https://github.com/nodejs/readable-stream;Node.js Streams, a user-land copy of the stream library from Node.js;1
-  safe-buffer;01.01.1900;https://github.com/feross/safe-buffer;Safer Node.js Buffer API;1
-  string-decoder;01/01/1900
+  schema-utils;01.01.1900;https://github.com/webpack/schema-utils;webpack Validation Utils;1
+  entities;01.01.1900;https://github.com/fb55/entities#readme;Encode & decode XML and HTML entities with ease & speed;1
+  ansi-styles;01.01.1900;https://github.com/chalk/ansi-styles#readme;ANSI escape codes for styling strings in the terminal;1
+  react-is;01.01.1900;https://react.dev/;Brand checking of React Elements.;1
+  ipaddr.js;01.01.1900;https://github.com/whitequark/ipaddr.js#readme;A library for manipulating IPv4 and IPv6 addresses in JavaScript.;1
+  react-is;01.01.1900;https://react.dev/;Brand checking of React Elements.;1
+  cookie;01.01.1900;https://github.com/jshttp/cookie#readme;HTTP server cookie parsing and serialization;1
+  isarray;01.01.1900;https://github.com/juliangruber/isarray;Array#isArray for older browsers;1
+  isarray;01.01.1900;https://github.com/juliangruber/isarray;Array#isArray for older browsers;1
+  chokidar;01.01.1900;https://github.com/paulmillr/chokidar;Minimal and efficient cross-platform file watching library;1
+  readdirp;01.01.1900;https://github.com/paulmillr/readdirp;Recursive version of fs.readdir with small RAM & CPU footprint.;1
+  encodeurl;01.01.1900;https://github.com/pillarjs/encodeurl#readme;Encode a URL to a percent-encoded form, excluding already-encoded sequences;1
+  ms;01.01.1900;https://github.com/vercel/ms#readme;Tiny millisecond conversion utility;1
+  depd;01.01.1900;https://github.com/dougwilson/nodejs-depd#readme;Deprecate all the things;1
+  http-errors;01.01.1900;https://github.com/jshttp/http-errors#readme;Create HTTP error objects;1
+  inherits;01.01.1900;https://github.com/isaacs/inherits#readme;Browser-friendly inheritance fully compatible with standard node.js inherits();1
+  setprototypeof;01.01.1900;https://github.com/wesleytodd/setprototypeof;A small polyfill for Object.setprototypeof;1
+  statuses;01.01.1900;https://github.com/jshttp/statuses#readme;HTTP status utility;1
   debug;01.01.1900;https://github.com/debug-js/debug#readme;Lightweight debugging utility for Node.js and the browser;1
   ms;01.01.1900;https://github.com/vercel/ms#readme;Tiny millisecond conversion utility;1
   debug;01.01.1900;https://github.com/debug-js/debug#readme;Lightweight debugging utility for Node.js and the browser;1
   ms;01.01.1900;https://github.com/vercel/ms#readme;Tiny millisecond conversion utility;1
-  resolve-from;01.01.1900;https://github.com/sindresorhus/resolve-from#readme;Resolve the path of a module like `require.resolve()` but from a given path;1
-  make-dir;01.01.1900;https://github.com/sindresorhus/make-dir#readme;Make a directory and its parents if needed - Think `mkdir -p`;1
-  debug;01.01.1900;https://github.com/debug-js/debug#readme;Lightweight debugging utility for Node.js and the browser;1
-  ms;01.01.1900;https://github.com/vercel/ms#readme;Tiny millisecond conversion utility;1
-  p-limit;01.01.1900;https://github.com/sindresorhus/p-limit#readme;Run multiple promise-returning & async functions with limited concurrency;1
-  p-limit;01.01.1900;https://github.com/sindresorhus/p-limit#readme;Run multiple promise-returning & async functions with limited concurrency;1
-  jest-worker;01.01.1900;https://github.com/jestjs/jest#readme;Module for executing heavy tasks under forked processes in parallel, by providing a `Promise` based interface, minimum overhead, and bound workers.;1
-  support-color;01.01.1900;https://github.com/chalk/supports-color#readme;Detect whether a terminal supports color;1
-  jest-worker;01.01.1900;https://github.com/jestjs/jest#readme;Module for executing heavy tasks under forked processes in parallel, by providing a `Promise` based interface, minimum overhead, and bound workers.;1
-  p-limit;01.01.1900;https://github.com/sindresorhus/p-limit#readme;Run multiple promise-returning & async functions with limited concurrency;1
-  source-map-support;01.01.1900;https://github.com/evanw/node-source-map-support#readme;Fixes stack traces for files with source maps;1
-  supports-color;01.01.1900;https://github.com/chalk/supports-color#readme;Detect whether a terminal supports color;1
-  camelcase;01.01.1900;https://github.com/sindresorhus/camelcase#readme;Convert a dash/dot/underscore/space separated string to camelCase or PascalCase: `foo-bar` → `fooBar`;1
-  supports-color;01.01.1900;https://github.com/chalk/supports-color#readme;Detect whether a terminal supports color;1
-  semver;01.01.1900;https://github.com/npm/node-semver#readme;The semantic version parser used by npm.;1
-  ajv;01.01.1900;https://ajv.js.org;Another JSON Schema Validator;1
-  ajv-keywords;01.01.1900;https://github.com/epoberezkin/ajv-keywords#readme;Additional JSON-Schema keywords for Ajv JSON validator;1
-  json-schema-traverse;01.01.1900;https://github.com/epoberezkin/json-schema-traverse#readme;Traverse JSON Schema passing each schema object to callback;1
+  escape-string-regexp;01.01.1900;https://github.com/sindresorhus/escape-string-regexp#readme;Escape RegExp special characters;1
+  escape-string-regexp;01.01.1900;https://github.com/sindresorhus/escape-string-regexp#readme;Escape RegExp special characters;1
+  is-plain-object;01.01.1900;https://github.com/jonschlinkert/is-plain-object;Returns true if an object was created by the `Object` constructor, or Object.create(null).;1
