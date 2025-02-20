@@ -1,25 +1,25 @@
-  chalk;01.01.1900;https://github.com/chalk/chalk#readme;Terminal string styling done right;1
-  dom-accessibility-api;01.01.1900;https://github.com/eps1lon/dom-accessibility-api#readme;Implements https://w3c.github.io/accname/;1
-  express-serve-static-core;01.01.1900;Домашняя страница не указана;only here to make types work;1
-  debug;01.01.1900;https://github.com/debug-js/debug#readme;Lightweight debugging utility for Node.js and the browser;1
-  ms;01.01.1900;https://github.com/vercel/ms#readme;Tiny millisecond conversion utility;1
-  debug;01.01.1900;https://github.com/debug-js/debug#readme;Lightweight debugging utility for Node.js and the browser;1
-  ms;01.01.1900;https://github.com/vercel/ms#readme;Tiny millisecond conversion utility;1
   brace-expansion;01.01.1900;https://github.com/juliangruber/brace-expansion;Brace expansion as known from sh/bash;1
   debug;01.01.1900;https://github.com/debug-js/debug#readme;Lightweight debugging utility for Node.js and the browser;1
+  doctrine;01.01.1900;https://github.com/eslint/doctrine;JSDoc parser;1
   minimatch;01.01.1900;https://github.com/isaacs/minimatch#readme;a glob matcher in javascript;1
   ms;01.01.1900;https://github.com/vercel/ms#readme;Tiny millisecond conversion utility;1
-  negotiator;01.01.1900;https://github.com/jshttp/negotiator#readme;HTTP content negotiation;1
-  debug;01.01.1900;https://github.com/debug-js/debug#readme;Lightweight debugging utility for Node.js and the browser;1
-  ms;01.01.1900;https://github.com/vercel/ms#readme;Tiny millisecond conversion utility;1
-  ajv;01.01.1900;https://ajv.js.org;Another JSON Schema Validator;1
-  json-schema-traverse;01.01.1900;https://github.com/epoberezkin/json-schema-traverse#readme;Traverse JSON Schema passing each schema object to callback;1
-  istanbul-lib-instrument;01.01.1900;https://istanbul.js.org/;Core istanbul API for JS code coverage;1
-  semver;01.01.1900;https://github.com/npm/node-semver#readme;The semantic version parser used by npm.;1
-  keyv;01.01.1900;https://github.com/jaredwray/keyv;Simple key-value storage with support for multiple backends;1
-  cssom;01.01.1900;https://github.com/NV/CSSOM#readme;CSS Object Model implementation and CSS parser;1
   estraverse;01.01.1900;https://github.com/estools/estraverse;ECMAScript JS AST traversal functions;1
+  resolve;01.01.1900;https://github.com/browserify/resolve#readme;resolve like require.resolve() on behalf of files asynchronously and synchronously;1
+  semver;01.01.1900;https://github.com/npm/node-semver#readme;The semantic version parser used by npm.;1
+  core;01.01.1900;Домашняя страница не указана;Core Libs;1
   debug;01.01.1900;https://github.com/debug-js/debug#readme;Lightweight debugging utility for Node.js and the browser;1
+  eslint-scope;01.01.1900;https://github.com/eslint/js/blob/main/packages/eslint-scope/README.md;ECMAScript scope analyzer for ESLint;1
+  estraverse;01.01.1900;https://github.com/estools/estraverse;ECMAScript JS AST traversal functions;1
+  find-up;01.01.1900;https://github.com/sindresorhus/find-up#readme;Find a file or directory by walking up parent directories;1
+  glob-parent;01.01.1900;https://github.com/gulpjs/glob-parent#readme;Extract the non-magic parent path from a glob string.;1
+  locate-path;01.01.1900;https://github.com/sindresorhus/locate-path#readme;Get the first path that exists on disk of multiple paths;1
   ms;01.01.1900;https://github.com/vercel/ms#readme;Tiny millisecond conversion utility;1
-  debug;01.01.1900;https://github.com/debug-js/debug#readme;Lightweight debugging utility for Node.js and the browser;1
-  ms;01.01.1900;https://github.com/vercel/ms#readme;Tiny millisecond conversion utility;1
+  p-limit;01.01.1900;https://github.com/sindresorhus/p-limit#readme;Run multiple promise-returning & async functions with limited concurrency;1
+  p-locate;01.01.1900;https://github.com/sindresorhus/p-locate#readme;Get the first fulfilled promise that satisfies the provided testing function;1
+  estraverse;01.01.1900;https://github.com/estools/estraverse;ECMAScript JS AST traversal functions;1
+  estraverse;01.01.1900;https://github.com/estools/estraverse;ECMAScript JS AST traversal functions;1
+  signal-exit;01.01.1900;https://github.com/tapjs/signal-exit#readme;when you want to fire an event no matter how a process exits.;1
+  brace-expansion;01.01.1900;https://github.com/juliangruber/brace-expansion;Brace expansion as known from sh/bash;1
+  minimatch;01.01.1900;https://github.com/isaacs/minimatch#readme;a glob matcher in javascript;1
+  commander;01.01.1900;https://github.com/tj/commander.js#readme;the complete solution for node.js command-line programs;1
+  which;01.01.1900;https://github.com/npm/node-which#readme;Like which(1) unix command. Find the first instance of an executable in the PATH.;1
