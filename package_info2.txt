@@ -1,0 +1,24 @@
+  node_modules/stylis; Версия не указана; Адрес не указан; 2016-11-27T07:56:53.578Z; MIT; A Light–weight CSS Preprocessor
+  node_modules/@humanwhocodes/retry; Версия не указана; Адрес не указан; 2024-01-17T00:18:36.363Z; Apache-2.0; A utility to retry failed async methods.
+  node_modules/@parcel/watcher; Версия не указана; Адрес не указан; 2018-12-18T18:37:56.684Z; MIT; A native C++ Node module for querying and subscribing to filesystem events. Used by Parcel 2.
+  node_modules/@parcel/watcher-linux-x64-glibc; Версия не указана; Адрес не указан; 2023-06-25T21:13:38.191Z; MIT; A native C++ Node module for querying and subscribing to filesystem events. Used by Parcel 2.
+  node_modules/@parcel/watcher-linux-x64-musl; Версия не указана; Адрес не указан; 2023-06-25T21:13:39.949Z; MIT; A native C++ Node module for querying and subscribing to filesystem events. Used by Parcel 2.
+  node_modules/@testing-library/dom; Версия не указана; Адрес не указан; 2019-05-30T17:14:48.611Z; MIT; Simple and complete DOM testing utilities that encourage good testing practices.
+  node_modules/@types/aria-query; Версия не указана; Адрес не указан; 2019-09-23T21:25:28.069Z; MIT; TypeScript definitions for aria-query
+  node_modules/acorn-globals; Версия не указана; Адрес не указан; 2014-09-22T15:19:11.866Z; MIT; Detect global variables in JavaScript using acorn
+  node_modules/keyv; Версия не указана; Адрес не указан; 2017-07-07T13:43:26.836Z; MIT; Simple key-value storage with support for multiple backends
+  node_modules/cssom; Версия не указана; Адрес не указан; 2011-10-24T21:58:19.383Z; MIT; CSS Object Model implementation and CSS parser
+  node_modules/escodegen; Версия не указана; Адрес не указан; 2012-03-03T15:50:31.471Z; BSD-2-Clause; ECMAScript code generator
+  node_modules/hookified; Версия не указана; Адрес не указан; 2024-09-03T15:36:32.105Z; MIT; Event Emitting and Middleware Hooks
+  node_modules/lz-string; Версия не указана; Адрес не указан; 2013-10-27T23:24:29.694Z; MIT; LZ-based compression algorithm
+  node_modules/node-addon-api; Версия не указана; Адрес не указан; 2017-05-04T23:12:20.155Z; MIT; Node.js API (Node-API)
+  node_modules/psl; Версия не указана; Адрес не указан; 2014-10-14T05:53:39.575Z; MIT; Domain name parser based on the Public Suffix List
+  node_modules/scheduler; Версия не указана; Адрес не указан; 2011-01-11T11:22:36.888Z; MIT; Cooperative scheduler for the browser environment.
+  node_modules/signalr; Версия не указана; Адрес не указан; 2015-10-20T18:59:00.457Z; Apache-2.0; Microsoft ASP.NET SignalR JavaScript Client
+  node_modules/strip-outer; Версия не указана; Адрес не указан; 2015-01-16T15:41:15.438Z; MIT; Strip a substring from the start/end of a string
+  node_modules/mdn-data; Версия не указана; Адрес не указан; 2017-06-22T10:33:18.359Z; CC0-1.0; Open Web data by the Mozilla Developer Network
+  node_modules/file-entry-cache; Версия не указана; Адрес не указан; 2015-03-02T09:30:04.174Z; MIT; A lightweight cache for file metadata, ideal for processes that work on a specific set of files and only need to reprocess files that have changed since the last run
+  node_modules/flat-cache; Версия не указана; Адрес не указан; 2015-02-26T12:20:02.550Z; MIT; A simple key/value storage using files to persist the data
+  node_modules/ignore; Версия не указана; Адрес не указан; 2013-09-02T07:32:08.169Z; MIT; Ignore is a manager and filter for .gitignore rules, the one used by eslint, gitbook and many others.
+  node_modules/supports-hyperlinks; Версия не указана; Адрес не указан; 2017-11-28T01:20:21.493Z; MIT; Detect whether a terminal supports hyperlinks
+  node_modules/trim-repeated; Версия не указана; Адрес не указан; 2015-01-13T16:27:43.676Z; MIT; Trim a consecutively repeated substring: foo--bar---baz → foo-bar-baz
