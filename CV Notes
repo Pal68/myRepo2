@@ -5,3 +5,45 @@ http://www.ipo.spb.ru/journal/content/1991/Описание%20дескрипто
 https://newtechaudit.ru/obnaruzhenie-pryamyh/ обнаружение линий алгоритм Хафа
 https://habr.com/ru/companies/otus/articles/745946/ Пример Хафа Питон
 https://habr.com/ru/articles/208090/ статья по  КЗ
+
+import xml.etree.ElementTree as ET
+import os
+
+def find_csproj_files(root_dir):
+    csproj_files = []
+    #ss = os.walk(root_dir)
+    print(os.walk(root_dir))
+    for root, dir, files in os.walk(root_dir):
+        for file in files:
+            if file.endswith(".csproj"):
+                full_path = os.path.join(root, file)
+                csproj_files.append(full_path)
+        return csproj_files
+
+def get_nuget_packages_from_cproj(cproj_path):
+    tree = ET.parse(cproj_path)
+    root = tree.getroot()
+    ns = {'msbuild' : 'http://schemas.microsoft.com/developer/msbuild/2003'}
+    #ns = {'msbuild': 'Microsoft.NET.Sdk'}
+    packages = []
+    #for package_ref in root.findall(".//msbuild.PackageReference", ns):
+    for package_ref in root.findall(".//PackageReference"):
+        package_name = package_ref.get("Include")
+        package_version = package_ref.get("Version")
+        packages.append((package_name, package_version))
+
+    return packages
+
+output_file = './nuget_list.txt'
+#cproj_file = "C:\_WORKSPACE\_REPOSITORY_GIT\Lims.Petrolis\Lims.Core.Domain\Lims.Core.Domain.csproj"
+
+PATH = 'C:/_WORKSPACE/_REPOSITORY_GIT/Lims.Petrolis/'
+result = [os.path.join(dp, f) for dp, dn, filenames in os.walk(PATH) for f in filenames if os.path.splitext(f)[1] == '.csproj']
+print(result)
+with open(output_file, 'w', encoding='utf-8') as f:
+    for file in result:
+        cproj_file = file
+        nuget_packages = get_nuget_packages_from_cproj(cproj_file)
+        for name, version in nuget_packages:
+            print(f'Nuget Packages: {name}, Version: {version}')
+            f.write(f'{name} {version}\n')
