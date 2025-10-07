@@ -7,30 +7,14 @@ https://habr.com/ru/companies/otus/articles/745946/ Пример Хафа Пит
 https://habr.com/ru/articles/208090/ статья по  КЗ
 
 
-[Collection(nameof(ObjectCollection))]
-public class PrimaryPhotoCoreChangeValueValidatorTests
-{
-    private readonly PrimaryPhotoCoreChangeValueArgsValidator validator;
 
-    public PrimaryPhotoCoreChangeValueValidatorTests()
+public PrimaryPhotoCoreChangeValueArgsValidator()
     {
-        validator = new PrimaryPhotoCoreChangeValueArgsValidator();
+        this.RuleFor(a => a.Value)
+        .Must((a, v) => v == null || int.TryParse(v.ToString(), out _))  
+        .When((a, v) => a.Param == nameof(PrimaryPhotoCoreVariableModel.CountBoxes))
+        .WithMessage((a, v) => $"Параметр '{a.Param}' должен быть целым числом или не задан.");
+        // .Must((a, v) => v == null || decimal.TryParse(v.ToString(), out _))  
+        // .When((a, v) => a.Param == nameof(PrimaryPhotoCoreVariableModel.CoreFootage))
+        // .WithMessage((a, v) => $"Параметр '{a.Param}' должен быть дробным числом или не задан."); 
     }
-
-    [Fact]
-    public async void Validate_should_return_expected_error_message_for_int_param()
-    {
-        //Arrange
-        var args = new ChangeValueArgs();
-        args.Param = "CountBoxes";
-        args.Value = 10.25; 
-        var expectedErrorMessage = $"Параметр '{args.Param}' должен быть целым числом или не задан.";
-
-        //Act
-        var result = await validator.TestValidateAsync(args);
-
-        //Assert
-        result.ShouldHaveValidationErrorFor(c => c.Value)
-        .WithErrorMessage(expectedErrorMessage);
-    }
-}
