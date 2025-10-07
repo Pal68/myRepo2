@@ -6,20 +6,31 @@ https://newtechaudit.ru/obnaruzhenie-pryamyh/ обнаружение линий 
 https://habr.com/ru/companies/otus/articles/745946/ Пример Хафа Питон
 https://habr.com/ru/articles/208090/ статья по  КЗ
 
-   public async Task ValidateAsync_should_throw_for_CoreFootage_greater_CoreOut()
+
+[Collection(nameof(ObjectCollection))]
+public class PrimaryPhotoCoreChangeValueValidatorTests
+{
+    private readonly PrimaryPhotoCoreChangeValueArgsValidator validator;
+
+    public PrimaryPhotoCoreChangeValueValidatorTests()
+    {
+        validator = new PrimaryPhotoCoreChangeValueArgsValidator();
+    }
+
+    [Fact]
+    public async void Validate_should_return_expected_error_message_for_int_param()
     {
         //Arrange
-        var gouge = factory.Fixture.Create<ObjGougeEntity>();
-        var task = factory.Fixture.Create<PrcsTaskEntity>();
-        task.Object = gouge.Object;
+        var args = new ChangeValueArgs();
+        args.Param = "CountBoxes";
+        args.Value = 10.25; 
+        var expectedErrorMessage = $"Параметр '{args.Param}' должен быть целым числом или не задан.";
 
-        this.limsDbContext.PrcsTasks.Add(task);
-        await this.limsDbContext.SaveChangesAsync(CancellationToken.None);
+        //Act
+        var result = await validator.TestValidateAsync(args);
 
-        var notValidModel = new PrimaryPhotoCoreVariableModel{ CoreFootage = gouge.CoreOut + 10 };
-
-        result.VariableModel = notValidModel;
-
-        //Act, Assert
-        await Assert.ThrowsAnyAsync<ValidationException>(async () => await result.ValidateAsync(task.Id, CancellationToken.None));
+        //Assert
+        result.ShouldHaveValidationErrorFor(c => c.Value)
+        .WithErrorMessage(expectedErrorMessage);
     }
+}
