@@ -8,13 +8,21 @@ https://habr.com/ru/articles/208090/ статья по  КЗ
 
 
 
-public PrimaryPhotoCoreChangeValueArgsValidator()
+public class CoreSawingVariableModel : IVariableModel
+{
+ public record SawingInterval(decimal sawedCoreFrom, decimal sawedCoreTo);
+ 
+ public list<SawingInterval> SawingIntervals;
+ 
+ public List<string> CoolingLiquidGlossary => new()
     {
-        this.RuleFor(a => a.Value)
-        .Must((a, v) => v == null || int.TryParse(v.ToString(), out _))  
-        .When((a, v) => a.Param == nameof(PrimaryPhotoCoreVariableModel.CountBoxes))
-        .WithMessage((a, v) => $"Параметр '{a.Param}' должен быть целым числом или не задан.");
-        // .Must((a, v) => v == null || decimal.TryParse(v.ToString(), out _))  
-        // .When((a, v) => a.Param == nameof(PrimaryPhotoCoreVariableModel.CoreFootage))
-        // .WithMessage((a, v) => $"Параметр '{a.Param}' должен быть дробным числом или не задан."); 
-    }
+        "Вода",
+        "Масло",
+        "Воздух",
+        "Жидкий азот",
+    };
+ 
+ public string? CoolingLiquid { get; set; }
+
+ public decimal? SawedCore { get; set; }
+}
