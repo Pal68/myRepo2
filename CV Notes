@@ -4,21 +4,18 @@ http://www.ipo.spb.ru/journal/content/1991/Описание%20дескрипто
 #https://disser.spbu.ru/disser2/disser/Batyukov_Alexander_disser.pdf
 https://newtechaudit.ru/obnaruzhenie-pryamyh/ обнаружение линий алгоритм Хафа
 https://habr.com/ru/companies/otus/articles/745946/ Пример Хафа Питон
-https://habr.com/ru/articles/208090/ статья по  КЗ
+https://habr.com/ru/articles/208090/ статья 
 
 
-в классе обявил свойство 
-public class CoreSawingVariableModel : IVariableModel
+Fact]
+public void ProcessParameterUpdate_ShouldUpdateSawingInterval_WhenDestinationAndParameterMatch()
 {
- public record SawingInterval(decimal SawedCoreFrom, decimal SawedCoreTo);
- public List<SawingInterval> SawingIntervals { get; set; }
-}
-
-в другом классе пытаюсь выполнить
-if (dest != null && param == nameof(this.variableModel.SawingIntervals))
+    // Arrange
+    var variableModel = new CoreSawingVariableModel
+    {
+        SawingIntervals = new List<SawingInterval>
         {
-            this.variableModel.SawingIntervals[dest.row].SawedCoreFrom = value != null ? Convert.ToDecimal(value) : null;
-            return;
-        }        
-получаю ошибку
-Значение свойства, задаваемого только при инициализации, или значение индексатора "CoreSawingVariableModel.SawingInterval.SawedCoreFrom" может быть присвоено только в инициализаторе объекта, в свойствах "this" или "base" в конструкторе экземпляра или в методе доступа "init".CS8852
+            new SawingInterval(0, 10),
+            new SawingInterval(10, 20)
+        }
+    };
