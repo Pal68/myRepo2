@@ -7,22 +7,18 @@ https://habr.com/ru/companies/otus/articles/745946/ Пример Хафа Пит
 https://habr.com/ru/articles/208090/ статья по  КЗ
 
 
-
+в классе обявил свойство 
 public class CoreSawingVariableModel : IVariableModel
 {
- public record SawingInterval(decimal sawedCoreFrom, decimal sawedCoreTo);
- 
- public list<SawingInterval> SawingIntervals;
- 
- public List<string> CoolingLiquidGlossary => new()
-    {
-        "Вода",
-        "Масло",
-        "Воздух",
-        "Жидкий азот",
-    };
- 
- public string? CoolingLiquid { get; set; }
-
- public decimal? SawedCore { get; set; }
+ public record SawingInterval(decimal SawedCoreFrom, decimal SawedCoreTo);
+ public List<SawingInterval> SawingIntervals { get; set; }
 }
+
+в другом классе пытаюсь выполнить
+if (dest != null && param == nameof(this.variableModel.SawingIntervals))
+        {
+            this.variableModel.SawingIntervals[dest.row].SawedCoreFrom = value != null ? Convert.ToDecimal(value) : null;
+            return;
+        }        
+получаю ошибку
+Значение свойства, задаваемого только при инициализации, или значение индексатора "CoreSawingVariableModel.SawingInterval.SawedCoreFrom" может быть присвоено только в инициализаторе объекта, в свойствах "this" или "base" в конструкторе экземпляра или в методе доступа "init".CS8852
