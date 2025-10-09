@@ -19,3 +19,14 @@ public void ProcessParameterUpdate_ShouldUpdateSawingInterval_WhenDestinationAnd
             new SawingInterval(10, 20)
         }
     };
+var targetClass = new YourTargetClass(variableModel);
+    var dest = new { row = 1 }; // Замените на ваш реальный тип dest
+    string param = nameof(CoreSawingVariableModel.SawingIntervals);
+    decimal expectedValue = 15.5m;
+
+    // Act
+    targetClass.YourMethod(dest, param, expectedValue); // Вызов вашего метода
+
+    // Assert
+    Assert.Equal(expectedValue, variableModel.SawingIntervals[1].SawedCoreFrom);
+}
