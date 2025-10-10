@@ -7,26 +7,29 @@ https://habr.com/ru/companies/otus/articles/745946/ Пример Хафа Пит
 https://habr.com/ru/articles/208090/ статья 
 
 
-Fact]
-public void ProcessParameterUpdate_ShouldUpdateSawingInterval_WhenDestinationAndParameterMatch()
+есть класс
+public class CoreSawingVariableModel : IVariableModel
 {
-    // Arrange
-    var variableModel = new CoreSawingVariableModel
-    {
-        SawingIntervals = new List<SawingInterval>
-        {
-            new SawingInterval(0, 10),
-            new SawingInterval(10, 20)
-        }
-    };
-var targetClass = new YourTargetClass(variableModel);
-    var dest = new { row = 1 }; // Замените на ваш реальный тип dest
-    string param = nameof(CoreSawingVariableModel.SawingIntervals);
-    decimal expectedValue = 15.5m;
+    public List<SawingInterval> SawingIntervals { get; set; } = new List<SawingInterval>();
 
-    // Act
-    targetClass.YourMethod(dest, param, expectedValue); // Вызов вашего метода
-
-    // Assert
-    Assert.Equal(expectedValue, variableModel.SawingIntervals[1].SawedCoreFrom);
+    public decimal? SawedCore { get; set; }
 }
+
+в другом классе определено свойство
+public partial class CoreSawingResult : IResultService<CoreSawingVersionMethod>
+{
+    private CoreSawingVariableModel variableModel = new();
+
+    public CoreSawingResult(ILimsDbContext limsDbContext, IMapper mapper)
+    {
+        this.limsDbContext = limsDbContext;
+        this.mapper = mapper;
+    }
+}
+
+как написать проуедуру которая добаляла в List SawingIntervals по имени SawingIntervals
+public void AddRow(SawingIntervals)
+    {
+       
+       this.variableModel.SawingIntervals.Add(); 
+    }
