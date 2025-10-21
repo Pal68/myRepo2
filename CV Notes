@@ -7,29 +7,45 @@ https://habr.com/ru/companies/otus/articles/745946/ Пример Хафа Пит
 https://habr.com/ru/articles/208090/ статья 
 
 
-есть класс
-public class CoreSawingVariableModel : IVariableModel
+namespace Lims.Core.Tests.UseCases.Results.CoreSawing.V1;
+
+using Xunit;
+using Lims.Core.Tests.UseCases.Fixtures;
+using FluentValidation.TestHelper;
+using System;
+using Lims.Core.UseCases.Results.CoreSawing.V1.Validators;
+using Lims.Core.UseCases.Results.CoreSawing.V1.Models;
+
+[Collection(nameof(ObjectCollection))]
+public class CoreSawingVariableModelValidatorTests
 {
-    public List<SawingInterval> SawingIntervals { get; set; } = new List<SawingInterval>();
+    private const decimal CoreOut = 10;
+    private readonly CoreSawingVariableModelValidator validator;
 
-    public decimal? SawedCore { get; set; }
-}
-
-в другом классе определено свойство
-public partial class CoreSawingResult : IResultService<CoreSawingVersionMethod>
-{
-    private CoreSawingVariableModel variableModel = new();
-
-    public CoreSawingResult(ILimsDbContext limsDbContext, IMapper mapper)
+    public CoreSawingVariableModelValidatorTests()
     {
-        this.limsDbContext = limsDbContext;
-        this.mapper = mapper;
+        validator = new CoreSawingVariableModelValidator(CoreOut);
     }
-}
 
-как написать проуедуру которая добаляла в List SawingIntervals по имени SawingIntervals
-public void AddRow(SawingIntervals)
+    
+    [Fact]
+    public async void Validate_should_return_expected_error_when_top_sawing_interval_greater_bottom()
     {
-       
-       this.variableModel.SawingIntervals.Add(); 
+        // Arrange
+        var expectedErrorMessage = "Верх должен быть меньше низа интервала распиловки.";
+        var variableModel = new CoreSawingVariableModel();
+        var sawingInterval = new SawingInterval {
+            SawedCoreFrom = 5,
+            SawedCoreTo  = 4,
+        };
+        variableModel.SawingIntervals.Add(sawingInterval);
+
+        // Act
+        var result = await validator.TestValidateAsync(variableModel);
+    
+        // Assert
+        result.ShouldHaveValidationErrorFor(c => variableModel.SawingIntervals[0].SawedCoreTo)
+              .WithErrorMessage(expectedErrorMessage);
     }
+
+}
