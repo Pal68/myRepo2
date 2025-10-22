@@ -6,7 +6,32 @@ https://newtechaudit.ru/obnaruzhenie-pryamyh/ обнаружение линий 
 https://habr.com/ru/companies/otus/articles/745946/ Пример Хафа Питон
 https://habr.com/ru/articles/208090/ статья 
 
-есть такой валидатор
+
+public class SawingIntervalValidator : AbstractValidator<SawingInterval>
+{
+    public SawingIntervalValidator()
+    {
+        RuleFor(i => i.SawedCoreTo)
+            .GreaterThan(i => i.SawedCoreFrom)
+            .When(i => i.SawedCoreFrom != null && i.SawedCoreTo != null)
+            .WithMessage("Верх должен быть больше низа интервала распиловки.")
+            .WithState(m => new ModelState(nameof(m.SawedCoreTo), PropTypes.Body));
+
+        // Или объединить в одно правило для обоих свойств
+        RuleFor(i => i)
+            .Must(i => i.SawedCoreFrom == null || i.SawedCoreTo == null || i.SawedCoreTo > i.SawedCoreFrom)
+            .WithMessage("Верх должен быть больше низа интервала распиловки.")
+            .WithState(m => new ModelState("", PropTypes.Body));
+    }
+}
+
+
+
+
+ест
+
+
+ь такой валидатор
 [IgnoreRegistrationValidator]
 public class SawingIntervalValidator : AbstractValidator<SawingInterval>
 {
