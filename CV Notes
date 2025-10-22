@@ -6,25 +6,51 @@ https://newtechaudit.ru/obnaruzhenie-pryamyh/ обнаружение линий 
 https://habr.com/ru/companies/otus/articles/745946/ Пример Хафа Питон
 https://habr.com/ru/articles/208090/ статья 
 
-
-[Fact]
-public async Task Validate_should_return_expected_error_when_top_sawing_interval_greater_bottom()
+есть такой валидатор
+[IgnoreRegistrationValidator]
+public class SawingIntervalValidator : AbstractValidator<SawingInterval>
 {
-    // Arrange
-    var expectedErrorMessage = "Верх должен быть меньше низа интервала распиловки.";
-    var variableModel = new CoreSawingVariableModel();
-    var sawingInterval = new SawingInterval 
+    public SawingIntervalValidator()
     {
-        SawedCoreFrom = 5,
-        SawedCoreTo = 4,
-    };
-    variableModel.SawingIntervals.Add(sawingInterval);
+        this.RuleFor(i => i.SawedCoreTo)
+            .Must((i, to) => to == null || to > i.SawedCoreFrom)
+            .WithMessage("Верх должен быть меньше низа интервала распиловки.")
+            .WithState(m => new ModelState(nameof(m.SawedCoreTo), PropTypes.Body));
 
-    // Act
-    var result = await validator.TestValidateAsync(variableModel);
-
-    // Assert - проверяем ошибку для свойства To в первом интервале
-    result.ShouldHaveAnyValidationError()
-          .WithErrorMessage(expectedErrorMessage)
-          .WithPropertyName("SawingIntervals[0].SawedCoreTo");
+        this.RuleFor(i => i.SawedCoreFrom)
+            .Must((i, from) => from == null || from < i.SawedCoreTo)
+            .WithMessage("Низ должен быть больше верха интервала распиловки.")
+            .WithState(m => new ModelState(nameof(m.SawedCoreFrom), PropTypes.Body));
+    }
 }
+
+[IgnoreRegistrationValidator]
+public class CoreSawingVariableModelValidator : AbstractValidator<CoreSawingVariableModel>
+{
+ 
+        this.RuleForEach(m => m.SawingIntervals)
+            .SetValidator(itemValidator);
+
+ 
+}
+
+почему не проходит такой тест
+ [Fact]
+    public async Task Validate_should_return_expected_error_when_top_sawing_interval_greater_bottom()
+    {
+        // Arrange
+        var expectedErrorMessage = "Верх должен быть меньше низа интервала распиловки.";
+        var variableModel = new CoreSawingVariableModel();
+        var sawingInterval = new SawingInterval {
+            SawedCoreFrom = 5,
+            SawedCoreTo  = 4,
+        };
+        variableModel.SawingIntervals.Add(sawingInterval);
+
+        // Act
+        var result = await validator.TestValidateAsync(variableModel);
+    
+        // Assert
+        result.ShouldHaveAnyValidationError(x => x.SawingIntervals[0].SawedCoreFrom)
+        .WithErrorMessage(expectedErrorMessage);
+
