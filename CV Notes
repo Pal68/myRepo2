@@ -7,6 +7,7 @@ https://habr.com/ru/companies/otus/articles/745946/ Пример Хафа Пит
 https://habr.com/ru/articles/208090/ статья 
 
 
+есть валидатор
 public class SawingIntervalValidator : AbstractValidator<SawingInterval>
 {
     public SawingIntervalValidator()
@@ -18,22 +19,41 @@ public class SawingIntervalValidator : AbstractValidator<SawingInterval>
 
         this.RuleFor(i => i.SawedCoreFrom)
             .Must((i, from) => from == null || from < i.SawedCoreTo)
-            .WithMessage("Верх должен быть меньше низа интервала распиловки.")
+            .WithMessage("Низ должен быть больше верха интервала распиловки.")
             .WithState(m => new ModelState(nameof(m.SawedCoreFrom), PropTypes.Body));
     }
 }
 
-[IgnoreRegistrationValidator]
-public class CoreSawingVariableModelValidator : AbstractValidator<CoreSawingVariableModel>
+почему не работает тест для этого валидатора
+[Collection(nameof(ObjectCollection))]
+public class CoreSawingVariableModelValidatorTests
 {
-    public CoreSawingVariableModelValidator(decimal coreOut)
+    private const decimal CoreOut = 10;
+    private readonly CoreSawingVariableModelValidator validator;
+
+    public CoreSawingVariableModelValidatorTests()
     {
-        var itemValidator = new SawingIntervalValidator();
+        validator = new CoreSawingVariableModelValidator(CoreOut);
+    }
 
-        this.RuleFor(m => m.SawingIntervals)
-            .Must(si => NotIntersects(si))
-            .WithMessage("Промежутки распиловки не должны пересекаться.")
-            .WithState(m => new ModelState(nameof(m.SawingIntervals), PropTypes.Body));
+    [Fact]
+    public async Task Validate_should_return_expected_error_when_top_sawing_interval_greater_bottom()
+    {
+        // Arrange
+        var expectedErrorMessage = "Верх должен быть меньше низа интервала распиловки.";
+        var variableModel = new CoreSawingVariableModel();
+        var sawingInterval = new SawingInterval {
+            SawedCoreFrom = 5,
+            SawedCoreTo  = 4,
+        };
+        variableModel.SawingIntervals.Add(sawingInterval);
 
-        this.RuleForEach(m => m.SawingIntervals)
-            .SetValidator(itemValidator);
+        // Act
+        var result = await validator.TestValidateAsync(variableModel);
+    
+        // Assert
+        result.ShouldHaveValidationErrorFor(x => x.SawingIntervals[0].SawedCoreFrom)
+              .WithErrorMessage(expectedErrorMessage);
+    }
+
+}
